@@ -1,31 +1,36 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
+<html lang="pt-BR" data-lt-installed="true"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laura Profile</title>
+    <title>Laura</title>
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="Meu%20Perfil%20Roxo%20%F0%9F%92%9C_files/css2.css" rel="stylesheet">
+    <script src="Meu%20Perfil%20Roxo%20%F0%9F%92%9C_files/index.js"></script>
+    <link rel="stylesheet" type="text/css" href="Meu%20Perfil%20Roxo%20%F0%9F%92%9C_files/style_003.css">
+    <link rel="stylesheet" type="text/css" href="Meu%20Perfil%20Roxo%20%F0%9F%92%9C_files/style_002.css">
+    <link rel="stylesheet" type="text/css" href="Meu%20Perfil%20Roxo%20%F0%9F%92%9C_files/style.css">
+    <link rel="stylesheet" type="text/css" href="Meu%20Perfil%20Roxo%20%F0%9F%92%9C_files/style_005.css">
+    <link rel="stylesheet" type="text/css" href="Meu%20Perfil%20Roxo%20%F0%9F%92%9C_files/style_006.css">
+    <link rel="stylesheet" type="text/css" href="Meu%20Perfil%20Roxo%20%F0%9F%92%9C_files/style_004.css">
 
     <style>
         :root {
-            /* Paleta Ciano Suave (Dark Mode) */
-            --bg-page: #0a1417; 
-            --box-bg: rgba(14, 28, 33, 0.65); 
-            --text-color: #e6f9fa; 
-            --main-accent: #64d8cb; 
-            --main-light: #8ef0e4; 
-            --alt-accent: #4ebaba; 
-            --grey-text: #a4d4d4; 
-            --bg-dots: #152e33; 
+            /* Paleta Preto, Branco e Cinza Claro */
+            --bg-page: #050505; /* Fundo preto/muito escuro */
+            --box-bg: rgba(15, 15, 15, 0.30); /* Fundo translúcido (Opacidade reduzida para destacar o vídeo) */
+            --text-color: #ffffff; /* Branco para o texto */
+            --main-accent: #d4d4d4; /* Cinza claro pros destaques */
+            --main-light: #ffffff; /* Branco puro para hovers e bordas */
+            --alt-accent: #a3a3a3; /* Cinza médio para a tag de íntimos */
+            --grey-text: #8a8a8a; /* Cinza pros textos secundários e legendas */
+            --bg-dots: #1f1f1f; /* Cor das bolinhas do fundo */
             
             /* Fundos das caixinhas */
-            --item-bg: #122429; 
-            --item-border: #1e3b42; 
+            --item-bg: rgba(25, 25, 25, 0.5); /* Fundo dos elementos menores levemente transparente */
+            --item-border: #404040; /* Borda dos elementos menores em cinza */
         }
 
         /* Estilo da barra de rolagem */
@@ -35,7 +40,7 @@
         ::-webkit-scrollbar-thumb:hover { background: var(--main-accent); }
 
         /* Seleção de texto fofa */
-        ::selection { background: var(--main-accent); color: #0a1417; }
+        ::selection { background: var(--main-accent); color: #000; }
 
         body {
             background-color: transparent; 
@@ -64,7 +69,7 @@
             z-index: -2;
             transform: translateX(-50%) translateY(-50%);
             object-fit: cover;
-            opacity: 0.50;
+            opacity: 0.50; /* Opacidade do vídeo mantida */
         }
 
         /* COR DE FUNDO FIXA ATRÁS DO VÍDEO */
@@ -79,7 +84,7 @@
         .start-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: #0a1417;
+            background: #000000;
             z-index: 9999;
             display: flex;
             align-items: center;
@@ -104,7 +109,7 @@
             backdrop-filter: blur(8px);
         }
 
-        /* Enfeite no topo do card */
+        /* Enfeite no topo do card (agora em tons de cinza/branco) */
         .container::before {
             content: '';
             position: absolute;
@@ -112,7 +117,7 @@
             left: 0;
             width: 100%;
             height: 12px;
-            background: linear-gradient(90deg, #8ef0e4, #64d8cb, #4ebaba, #8ef0e4);
+            background: linear-gradient(90deg, #ffffff, #d4d4d4, #a3a3a3, #ffffff);
             background-size: 200% 200%;
             animation: gradientMove 5s ease infinite;
         }
@@ -158,7 +163,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            text-shadow: 0 0 10px rgba(100, 216, 203, 0.3);
+            text-shadow: 0 0 10px rgba(212, 212, 212, 0.4);
         }
 
         .bio {
@@ -198,14 +203,14 @@
 
         .tag-item:hover {
             background-color: var(--main-light);
-            color: #0a1417;
+            color: #000;
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(142, 240, 228, 0.4);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
             border-color: var(--main-light);
         }
 
         .tag-item:hover .tag-icon {
-            color: #0a1417;
+            color: #000;
         }
 
         .tag-icon {
@@ -292,7 +297,7 @@
 
         .interest-badge {
             background: var(--bg-page);
-            border: 1px solid var(--main-light);
+            border: 1px solid var(--item-border);
             padding: 6px 15px;
             border-radius: 15px;
             font-size: 0.9em;
@@ -334,9 +339,9 @@
 
         .social-btn:hover {
             background-color: var(--main-accent);
-            color: #0a1417;
+            color: #000;
             transform: translateY(-5px) rotate(8deg);
-            box-shadow: 0 5px 15px rgba(100, 216, 203, 0.4);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
             border-color: var(--main-accent);
         }
 
@@ -368,23 +373,21 @@
 <body>
 
 <div id="start-overlay" class="start-overlay">
-    <span> Clique para entrar </span>
+    <span>✨ Clique para entrar ✨</span>
 </div>
 
 <div class="bg-color"></div>
 <video autoplay loop muted playsinline id="bg-video" class="bg-video">
-    <source src="https://cdn.discordapp.com/attachments/1072202677888495756/1496140112356970708/ssstik.io_ping_official_acc_1776777462877.mp4?ex=69e8cc8f&is=69e77b0f&hm=5d70e05b505d9f9304ef97eff83be362b30d9d90b3e2e257ae6eba95a5c62e68&" type="video/mp4">
+    <source src="https://cdn.discordapp.com/attachments/1072202677888495756/1496191619152609492/ssstik.io_yusuf_goj1_1776790265635.mp4?ex=69e8fc87&is=69e7ab07&hm=0a59cfad75eba225fd775f73d98b009ba6890fa1602170da4f30bc9c70818965&" type="video/mp4">
 </video>
 
 <audio id="bg-music" loop>
-    <source src="https://cdn.discordapp.com/attachments/1072202677888495756/1496140860717400275/ssstik.io_ping_official_acc_1776777462877_1.mp3?ex=69e8cd42&is=69e77bc2&hm=142c276da01e5742a478230911bf647d90b277414ef0c6573efa2d6f5adb019c&" type="audio/mpeg">
+    <source src="https://cdn.discordapp.com/attachments/1072202677888495756/1496191658285596853/ssstik.io_yusuf_goj1_1776790265635.mp3?ex=69e8fc91&is=69e7ab11&hm=665f8b5c38a0a57737d9a0c44bfa0c85482e85bc2b55b8963052d201d6ce1eb5&" type="audio/mpeg">
 </audio>
 
 <div class="container">
     <div class="header">
-        
-        <img alt="Avatar" class="avatar" src="https://media.discordapp.net/attachments/1072202677888495756/1496154684879278180/469adf8409320fce20754c0798a2bdd9.jpg?ex=69e8da22&is=69e788a2&hm=8ff747767a76e41ddfa178ef83bd41b4ebf78bfd9b2de0819288664f51bfa487&=&format=webp&width=824&height=858">
-        
+        <img alt="Avatar" class="avatar" src="Meu%20Perfil%20Roxo%20%F0%9F%92%9C_files/2ca03f109eda99cc8a4e3553af64ec57.gif">
         <h1 class="username">
             <i class="ph-fill ph-moon-stars" style="color: var(--main-light); font-size: 0.8em;"></i>@Laura<i class="ph-fill ph-sparkle" style="color: var(--main-light); font-size: 0.8em;"></i>
         </h1>
@@ -470,5 +473,4 @@
     });
 </script>
 
-</body>
-</html>
+</body></html>
