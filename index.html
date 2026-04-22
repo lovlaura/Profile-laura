@@ -14,18 +14,18 @@
     <style>
         :root {
             /* Paleta Preto, Branco e Cinza Claro */
-            --bg-page: #050505; /* Fundo preto/muito escuro */
-            --box-bg: rgba(15, 15, 15, 0.30); /* Fundo translúcido (Opacidade reduzida para destacar o vídeo) */
-            --text-color: #ffffff; /* Branco para o texto */
-            --main-accent: #d4d4d4; /* Cinza claro pros destaques */
-            --main-light: #ffffff; /* Branco puro para hovers e bordas */
-            --alt-accent: #a3a3a3; /* Cinza médio para a tag de íntimos */
-            --grey-text: #8a8a8a; /* Cinza pros textos secundários e legendas */
-            --bg-dots: #1f1f1f; /* Cor das bolinhas do fundo */
+            --bg-page: #050505;
+            --box-bg: rgba(15, 15, 15, 0.30);
+            --text-color: #ffffff;
+            --main-accent: #d4d4d4;
+            --main-light: #ffffff;
+            --alt-accent: #a3a3a3;
+            --grey-text: #8a8a8a;
+            --bg-dots: #1f1f1f;
             
             /* Fundos das caixinhas */
-            --item-bg: rgba(25, 25, 25, 0.5); /* Fundo dos elementos menores levemente transparente */
-            --item-border: #404040; /* Borda dos elementos menores em cinza */
+            --item-bg: rgba(25, 25, 25, 0.5);
+            --item-border: #404040;
         }
 
         /* Estilo da barra de rolagem */
@@ -64,7 +64,7 @@
             z-index: -2;
             transform: translateX(-50%) translateY(-50%);
             object-fit: cover;
-            opacity: 0.50; /* Opacidade do vídeo mantida */
+            opacity: 0.50;
         }
 
         /* COR DE FUNDO FIXA ATRÁS DO VÍDEO */
@@ -104,7 +104,7 @@
             backdrop-filter: blur(8px);
         }
 
-        /* Enfeite no topo do card (agora em tons de cinza/branco) */
+        /* Enfeite no topo do card */
         .container::before {
             content: '';
             position: absolute;
@@ -204,15 +204,8 @@
             border-color: var(--main-light);
         }
 
-        .tag-item:hover .tag-icon {
-            color: #000;
-        }
-
-        .tag-icon {
-            color: var(--main-accent);
-            font-size: 1.3em;
-            transition: color 0.3s ease;
-        }
+        .tag-item:hover .tag-icon { color: #000; }
+        .tag-icon { color: var(--main-accent); font-size: 1.3em; transition: color 0.3s ease; }
 
         /* Grid Principal */
         .grid {
@@ -252,12 +245,7 @@
         }
 
         /* Listas e Ícones */
-        .item-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
+        .item-list { list-style: none; padding: 0; margin: 0; }
         .item-list li {
             font-size: 1.15em;
             margin-bottom: 12px;
@@ -272,10 +260,7 @@
         .icon-nao { color: var(--grey-text); font-size: 1.3em; text-decoration: line-through; opacity: 0.6; }
         .icon-proximos { color: var(--alt-accent); font-size: 1.3em;}
 
-        /* Animação de pulso para o coração */
-        .ph-heart.icon-claro {
-            animation: pulse 2s infinite;
-        }
+        .ph-heart.icon-claro { animation: pulse 2s infinite; }
 
         @keyframes pulse {
             0% { transform: scale(1); }
@@ -284,12 +269,7 @@
         }
 
         /* Interesses */
-        .interests-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
+        .interests-container { display: flex; flex-wrap: wrap; gap: 10px; }
         .interest-badge {
             background: var(--bg-page);
             border: 1px solid var(--item-border);
@@ -302,11 +282,7 @@
             align-items: center;
             gap: 6px;
         }
-
-        .interest-badge i {
-            color: var(--main-accent);
-            font-size: 1.2em;
-        }
+        .interest-badge i { color: var(--main-accent); font-size: 1.2em; }
 
         /* Redes Sociais */
         .socials {
@@ -358,11 +334,7 @@
             border: 1px solid var(--item-border);
         }
 
-        .legend span {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
+        .legend span { display: flex; align-items: center; gap: 6px; }
     </style>
 </head>
 <body>
@@ -371,21 +343,19 @@
     <span>✨ Clique para entrar ✨</span>
 </div>
 
-<iframe 
-    src="https://youtu.be/zn2fjwTJ_Hs" 
-    frameborder="0" 
-    allow="autoplay; encrypted-media"
-    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; border: none;">
-</iframe>
+<div class="bg-color"></div>
+<video autoplay loop muted playsinline id="bg-video" class="bg-video">
+    <source src="video.mp4" type="video/mp4">
+</video>
 
 <audio id="bg-music" loop>
-    <source src="https://youtu.be/zn2fjwTJ_Hs" type="audio/mpeg">
+    <source src="musica.mp3" type="audio/mpeg">
 </audio>
 
 <div class="container">
     <div class="header">
         
-        <img alt="Avatar" class="avatar" src="https://media.discordapp.net/attachments/1072202677888495756/1496195964560474324/b2c2233bb42e749d0f6e30cee673608f.jpg?ex=69e90093&is=69e7af13&hm=ebd1e113e2b183aaea7ec309034ef9a66b1301aaffd55f8f115a9bb6bdbefa13&=&format=webp&width=880&height=880">
+        <img alt="Avatar" class="avatar" src="avatar.jpg">
         
         <h1 class="username">
             <i class="ph-fill ph-moon-stars" style="color: var(--main-light); font-size: 0.8em;"></i>@Laura<i class="ph-fill ph-sparkle" style="color: var(--main-light); font-size: 0.8em;"></i>
