@@ -13,7 +13,6 @@
 
     <style>
         :root {
-            /* Paleta Preto, Branco e Cinza Claro */
             --bg-page: #050505;
             --box-bg: rgba(15, 15, 15, 0.30);
             --text-color: #ffffff;
@@ -22,8 +21,6 @@
             --alt-accent: #a3a3a3;
             --grey-text: #8a8a8a;
             --bg-dots: #1f1f1f;
-            
-            /* Fundos das caixinhas */
             --item-bg: rgba(25, 25, 25, 0.5);
             --item-border: #404040;
         }
@@ -34,15 +31,11 @@
         ::-webkit-scrollbar-thumb { background: var(--main-light); border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--main-accent); }
 
-        /* Seleção de texto fofa */
-        ::selection { background: var(--main-accent); color: #000; }
-
         body {
             background-color: transparent; 
             background-image: radial-gradient(var(--bg-dots) 2.5px, transparent 2.5px), radial-gradient(var(--bg-dots) 2.5px, transparent 2.5px);
             background-size: 40px 40px;
             background-position: 0 0, 20px 20px;
-            
             color: var(--text-color);
             font-family: 'Quicksand', sans-serif;
             margin: 0;
@@ -67,7 +60,6 @@
             opacity: 0.50;
         }
 
-        /* COR DE FUNDO FIXA ATRÁS DO VÍDEO */
         .bg-color {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -75,7 +67,6 @@
             z-index: -3;
         }
 
-        /* TELA DE CLIQUE PARA ENTRAR */
         .start-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -104,14 +95,10 @@
             backdrop-filter: blur(8px);
         }
 
-        /* Enfeite no topo do card */
         .container::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 12px;
+            top: 0; left: 0; width: 100%; height: 12px;
             background: linear-gradient(90deg, #ffffff, #d4d4d4, #a3a3a3, #ffffff);
             background-size: 200% 200%;
             animation: gradientMove 5s ease infinite;
@@ -123,218 +110,78 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Cabeçalho */
-        .header {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 30px;
-            gap: 15px;
-            text-align: center;
-        }
+        .header { display: flex; flex-direction: column; align-items: center; margin-bottom: 30px; gap: 15px; text-align: center; }
 
         .avatar {
             width: 140px;
             height: 140px;
             border-radius: 50%;
             object-fit: cover;
-            background-color: var(--item-bg);
             border: 5px solid var(--main-light); 
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease, border-color 0.3s ease;
+            transition: transform 0.3s ease;
         }
 
-        .avatar:hover {
-            transform: scale(1.05) rotate(3deg);
-            border-color: var(--main-accent);
-        }
+        .avatar:hover { transform: scale(1.05) rotate(3deg); }
 
-        .username {
-            font-size: 2.5em;
-            font-weight: 700;
-            margin: 0;
-            color: var(--main-accent);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-shadow: 0 0 10px rgba(212, 212, 212, 0.4);
-        }
+        .username { font-size: 2.5em; font-weight: 700; margin: 0; color: var(--main-accent); display: flex; align-items: center; gap: 10px; }
 
-        .bio {
-            color: var(--grey-text);
-            font-size: 1.1em;
-            max-width: 500px;
-            margin-top: -5px;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
+        .bio { color: var(--grey-text); font-size: 1.1em; display: flex; align-items: center; justify-content: center; gap: 8px; }
 
-        /* Tags de Informação */
-        .tags {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 40px;
-            font-size: 1.1em;
-            flex-wrap: wrap;
-        }
+        .tags { display: flex; justify-content: center; gap: 15px; margin-bottom: 40px; flex-wrap: wrap; }
 
         .tag-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 600;
-            background-color: var(--item-bg);
-            padding: 10px 20px;
-            border-radius: 25px;
-            border: 2px solid var(--item-border);
-            transition: all 0.3s ease;
-            cursor: default;
+            display: flex; align-items: center; gap: 8px; font-weight: 600;
+            background-color: var(--item-bg); padding: 10px 20px; border-radius: 25px;
+            border: 2px solid var(--item-border); transition: all 0.3s ease;
         }
 
-        .tag-item:hover {
-            background-color: var(--main-light);
-            color: #000;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
-            border-color: var(--main-light);
-        }
+        .tag-item:hover { background-color: var(--main-light); color: #000; transform: translateY(-3px); }
 
-        .tag-item:hover .tag-icon { color: #000; }
-        .tag-icon { color: var(--main-accent); font-size: 1.3em; transition: color 0.3s ease; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 40px; }
 
-        /* Grid Principal */
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        @media (max-width: 700px) {
-            .grid { grid-template-columns: 1fr; }
-            .container { padding: 40px 20px; }
-        }
+        @media (max-width: 700px) { .grid { grid-template-columns: 1fr; } }
 
         .section-box {
-            background: var(--item-bg);
-            padding: 25px;
-            border-radius: 20px;
-            border: 2px dashed var(--item-border);
-            transition: transform 0.3s ease, border-color 0.3s ease;
+            background: var(--item-bg); padding: 25px; border-radius: 20px;
+            border: 2px dashed var(--item-border); transition: transform 0.3s ease;
         }
 
-        .section-box:hover {
-            transform: translateY(-5px);
-            border-color: var(--main-accent);
-        }
+        .section-box:hover { transform: translateY(-5px); border-color: var(--main-accent); }
 
-        h2 {
-            font-weight: 700;
-            font-size: 1.5em;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 0;
-            margin-bottom: 20px;
-            color: var(--main-accent);
-        }
+        h2 { font-weight: 700; font-size: 1.5em; display: flex; align-items: center; gap: 10px; margin: 0 0 20px 0; color: var(--main-accent); }
 
-        /* Listas e Ícones */
         .item-list { list-style: none; padding: 0; margin: 0; }
-        .item-list li {
-            font-size: 1.15em;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 500;
-        }
+        .item-list li { font-size: 1.15em; margin-bottom: 12px; display: flex; align-items: center; gap: 12px; font-weight: 500; }
 
-        .icon-claro { color: var(--main-accent); font-size: 1.3em;}
-        .icon-ok { color: var(--text-color); font-size: 1.3em;}
-        .icon-nao { color: var(--grey-text); font-size: 1.3em; text-decoration: line-through; opacity: 0.6; }
-        .icon-proximos { color: var(--alt-accent); font-size: 1.3em;}
+        .icon-claro { color: var(--main-accent); }
+        .icon-ok { color: var(--text-color); }
+        .icon-nao { color: var(--grey-text); text-decoration: line-through; opacity: 0.6; }
+        .icon-proximos { color: var(--alt-accent); }
 
-        .ph-heart.icon-claro { animation: pulse 2s infinite; }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-
-        /* Interesses */
         .interests-container { display: flex; flex-wrap: wrap; gap: 10px; }
         .interest-badge {
-            background: var(--bg-page);
-            border: 1px solid var(--item-border);
-            padding: 6px 15px;
-            border-radius: 15px;
-            font-size: 0.9em;
-            font-weight: 600;
-            color: var(--text-color);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .interest-badge i { color: var(--main-accent); font-size: 1.2em; }
-
-        /* Redes Sociais */
-        .socials {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
-            margin-bottom: 30px;
+            background: var(--bg-page); border: 1px solid var(--item-border);
+            padding: 6px 15px; border-radius: 15px; font-size: 0.9em;
+            color: var(--text-color); display: flex; align-items: center; gap: 6px;
         }
 
+        .socials { display: flex; justify-content: center; gap: 15px; margin: 20px 0 30px 0; }
         .social-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 45px;
-            height: 45px;
-            background-color: var(--item-bg);
-            color: var(--main-accent);
-            border-radius: 50%;
-            font-size: 1.5em;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border: 1px solid var(--item-border);
+            display: flex; align-items: center; justify-content: center;
+            width: 45px; height: 45px; background-color: var(--item-bg);
+            color: var(--main-accent); border-radius: 50%; font-size: 1.5em;
+            text-decoration: none; transition: all 0.3s ease; border: 1px solid var(--item-border);
         }
 
-        .social-btn:hover {
-            background-color: var(--main-accent);
-            color: #000;
-            transform: translateY(-5px) rotate(8deg);
-            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
-            border-color: var(--main-accent);
-        }
+        .social-btn:hover { background-color: var(--main-accent); color: #000; transform: translateY(-5px); }
 
-        /* Legenda */
         .legend {
-            text-align: center;
-            margin-top: 30px;
-            color: var(--grey-text);
-            font-size: 0.95em;
-            font-weight: 600;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            background-color: var(--item-bg);
-            padding: 15px;
-            border-radius: 20px;
-            border: 1px solid var(--item-border);
+            text-align: center; margin-top: 30px; color: var(--grey-text); font-size: 0.95em;
+            display: flex; justify-content: center; align-items: center; gap: 20px;
+            flex-wrap: wrap; background-color: var(--item-bg); padding: 15px;
+            border-radius: 20px; border: 1px solid var(--item-border);
         }
-
-        .legend span { display: flex; align-items: center; gap: 6px; }
     </style>
 </head>
 <body>
@@ -344,18 +191,18 @@
 </div>
 
 <div class="bg-color"></div>
+
 <video autoplay loop muted playsinline id="bg-video" class="bg-video">
-    <source src="video.mp4" type="video/mp4">
+    <source src="COLE_AQUI_O_LINK_DO_VIDEO.mp4" type="video/mp4">
 </video>
 
 <audio id="bg-music" loop>
-    <source src="musica.mp3" type="audio/mpeg">
+    <source src="COLE_AQUI_O_LINK_DA_MUSICA.mp3" type="audio/mpeg">
 </audio>
 
 <div class="container">
     <div class="header">
-        
-        <img alt="Avatar" class="avatar" src="avatar.jpg">
+        <img alt="Avatar" class="avatar" src="COLE_AQUI_O_LINK_DA_FOTO.jpg">
         
         <h1 class="username">
             <i class="ph-fill ph-moon-stars" style="color: var(--main-light); font-size: 0.8em;"></i>@Laura<i class="ph-fill ph-sparkle" style="color: var(--main-light); font-size: 0.8em;"></i>
@@ -413,8 +260,6 @@
                 <div class="interest-badge"><i class="ph-fill ph-headphones"></i> Música Pop</div>
                 <div class="interest-badge"><i class="ph-fill ph-cat"></i> Gatinhos</div>
                 <div class="interest-badge"><i class="ph-fill ph-television"></i> Anime</div>
-                <div class="interest-badge"><i class="ph-fill ph-code"></i> Programação</div>
-                <div class="interest-badge"><i class="ph-fill ph-coffee"></i> Cafézinho</div>
             </div>
         </div>
     </div>
@@ -429,15 +274,11 @@
 
 <script>
     document.getElementById('start-overlay').addEventListener('click', function() {
-        // Esconde a tela de início
         this.style.opacity = '0';
-        setTimeout(() => {
-            this.style.display = 'none';
-        }, 500);
+        setTimeout(() => { this.style.display = 'none'; }, 500);
 
-        // Toca a música
         const music = document.getElementById('bg-music');
-        music.volume = 0.5; // Você pode alterar o volume aqui (0.0 até 1.0)
+        music.volume = 0.5;
         music.play();
     });
 </script>
