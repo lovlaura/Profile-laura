@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-PT">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -196,7 +196,7 @@
     <source src="https://i.imgur.com/W1qHIS8.mp4" type="video/mp4">
 </video>
 
-<audio id="bg-music" loop>
+<audio id="bg-music" loop preload="auto">
     <source src="https://media1.vocaroo.com/mp3/1nPR1XqYkJmm" type="audio/mpeg">
 </audio>
 
@@ -274,12 +274,29 @@
 
 <script>
     document.getElementById('start-overlay').addEventListener('click', function() {
-        this.style.opacity = '0';
-        setTimeout(() => { this.style.display = 'none'; }, 500);
-
+        const overlay = this;
         const music = document.getElementById('bg-music');
+        
         music.volume = 0.5;
-        music.play();
+
+        // Tenta iniciar a música
+        let playPromise = music.play();
+
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
+                // Se a música tocar com sucesso, esconde o ecrã inicial
+                overlay.style.opacity = '0';
+                setTimeout(() => { overlay.style.display = 'none'; }, 500);
+            }).catch(error => {
+                // Se o Vocaroo estiver a bloquear o áudio, mostra este erro
+                alert("Erro: O link do áudio não está a funcionar. O Vocaroo pode estar a bloquear o acesso. Tente descarregar a música e usar um ficheiro local.");
+                console.error("Erro ao reproduzir áudio:", error);
+                
+                // Esconde o ecrã inicial mesmo com erro para conseguir ver o site
+                overlay.style.opacity = '0';
+                setTimeout(() => { overlay.style.display = 'none'; }, 500);
+            });
+        }
     });
 </script>
 
