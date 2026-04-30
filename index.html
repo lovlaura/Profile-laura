@@ -14,10 +14,8 @@
     <style>
         :root {
             --bg-page: #050505;
-            /* Painel central BEM mais transparente */
             --box-bg: rgba(15, 15, 15, 0.35); 
             
-            /* Cor principal: Roxo Pastel */
             --primary: #a78bfa; 
             --primary-glow: rgba(167, 139, 250, 0.4);
             --primary-bg: rgba(167, 139, 250, 0.1);
@@ -33,7 +31,6 @@
             --item-border: rgba(255, 255, 255, 0.1);
         }
 
-        /* Cursor Customizado */
         body {
             cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><circle cx="10" cy="10" r="4" fill="%23a78bfa"/></svg>') 10 10, auto;
             background-color: var(--bg-page); 
@@ -51,7 +48,6 @@
             overflow-x: hidden;
         }
 
-        /* Cursor para links e botões */
         a, button, .tag-item, .section-box, .audio-control, .legend span, .start-overlay, .spotify-card .heart-icon, .spotify-card .controls i {
             cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><circle cx="12" cy="12" r="6" fill="none" stroke="%23a78bfa" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="white"/></svg>') 12 12, pointer !important;
         }
@@ -240,20 +236,20 @@
         .audio-control.visible { opacity: 1; visibility: visible; }
 
         /* ========================================= */
-        /* --- CARD SPOTIFY - MENOR E COM BLUR --- */
+        /* --- CARD SPOTIFY - AJUSTADO E ALINHADO --- */
         /* ========================================= */
         .spotify-card {
             position: fixed;
-            top: 20px;
-            left: 20px;
-            width: 200px; /* Tamanho reduzido */
-            background-color: var(--box-bg); /* Mesmo fundo transparente do container */
-            backdrop-filter: blur(8px); /* Mesmo desfoque do container */
+            top: 30px; /* Alinhado com os 30px do botão de áudio */
+            left: 30px; /* Alinhado com os 30px do botão de áudio */
+            width: 210px; /* Ajuste leve para melhor respiro interno */
+            background-color: var(--box-bg); 
+            backdrop-filter: blur(8px); 
             -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.05); /* Borda suave igual ao painel */
-            color: var(--main-light); /* Letras brancas */
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+            color: var(--main-light); 
             padding: 15px;
-            border-radius: 20px; /* Bordas arredondadas pra combinar */
+            border-radius: 20px; 
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             z-index: 1000;
             font-family: 'Quicksand', sans-serif;
@@ -264,7 +260,7 @@
         .spotify-card .album-cover {
             width: 100%;
             aspect-ratio: 1 / 1;
-            border-radius: 12px; /* Capa com borda redondinha */
+            border-radius: 12px; 
             margin-bottom: 12px;
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -286,8 +282,10 @@
         .spotify-card .song-info .text {
             display: flex;
             flex-direction: column;
-            overflow: hidden; /* Evita que nomes muito longos quebrem o card */
+            overflow: hidden; 
             white-space: nowrap;
+            flex: 1; /* Ocupa o espaço livre sem empurrar o coração */
+            margin-right: 10px;
         }
 
         .spotify-card .title {
@@ -303,12 +301,15 @@
             font-weight: 500;
             font-size: 0.8em;
             color: var(--alt-accent);
+            text-overflow: ellipsis;
+            overflow: hidden;
         }
 
         .spotify-card .heart-icon {
             font-size: 1.3em;
-            color: var(--primary); /* Coração com a cor do tema */
+            color: var(--primary); 
             transition: transform 0.2s ease;
+            flex-shrink: 0; /* Impede o coração de ser espremido */
         }
 
         .spotify-card .heart-icon:hover {
@@ -335,14 +336,14 @@
         .spotify-card .bar .fill {
             width: 33%;
             height: 100%;
-            background-color: var(--primary); /* Barrinha na cor do tema */
+            background-color: var(--primary); 
             border-radius: 3px;
         }
 
         .spotify-card .controls {
             display: flex;
             justify-content: center;
-            gap: 15px; /* Mais próximos e sem coisas desnecessárias */
+            gap: 15px; 
             align-items: center;
             font-size: 1.3em;
         }
@@ -413,6 +414,7 @@
         <i class="ph-fill ph-skip-forward"></i>
     </div>
 </div>
+
 <div class="container">
     <div class="header">
         <div class="avatar-wrapper">
@@ -491,7 +493,6 @@
     const audioIcon = document.getElementById('audio-icon');
     let isPlaying = false;
 
-    // Lógica da tela de entrada
     overlay.addEventListener('click', function() {
         overlay.style.opacity = '0';
         overlay.style.visibility = 'hidden';
@@ -527,7 +528,6 @@
         }
     });
 
-    // --- CÓDIGO PARA PUXAR AVATAR, MOLDURA E STATUS DO DISCORD ---
     const discordId = '1052662634085892188'; 
 
     async function fetchDiscordData() {
@@ -538,13 +538,11 @@
             if (data.success) {
                 const user = data.data.discord_user;
                 
-                // 1. Atualizar o Avatar
                 const isGif = user.avatar.startsWith('a_'); 
                 const extension = isGif ? 'gif' : 'png';
                 const avatarUrl = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${extension}?size=512`;
                 document.getElementById('discord-avatar').src = avatarUrl;
 
-                // 2. Atualizar a Moldura (Avatar Decoration)
                 const decorationImg = document.getElementById('discord-decoration');
                 if (user.avatar_decoration_data && user.avatar_decoration_data.asset) {
                     const asset = user.avatar_decoration_data.asset;
@@ -555,20 +553,19 @@
                     decorationImg.style.display = 'none'; 
                 }
 
-                // 3. Atualizar a Bolinha de Status
                 const status = data.data.discord_status;
                 const statusDot = document.getElementById('discord-status');
                 
                 statusDot.title = status; 
                 
                 if (status === 'online') {
-                    statusDot.style.backgroundColor = '#22c55e'; // Verde
+                    statusDot.style.backgroundColor = '#22c55e'; 
                 } else if (status === 'idle') {
-                    statusDot.style.backgroundColor = '#f59e0b'; // Amarelo
+                    statusDot.style.backgroundColor = '#f59e0b'; 
                 } else if (status === 'dnd') {
-                    statusDot.style.backgroundColor = '#ef4444'; // Vermelho
+                    statusDot.style.backgroundColor = '#ef4444'; 
                 } else {
-                    statusDot.style.backgroundColor = '#747f8d'; // Cinza
+                    statusDot.style.backgroundColor = '#747f8d'; 
                 }
             }
         } catch (error) {
