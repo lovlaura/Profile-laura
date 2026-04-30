@@ -26,7 +26,6 @@
             --glow-color: rgba(255, 255, 255, 0.15);
         }
 
-        /* Estilo da barra de rolagem */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--bg-page); }
         ::-webkit-scrollbar-thumb { background: var(--item-border); border-radius: 10px; }
@@ -47,7 +46,6 @@
             overflow-x: hidden;
         }
 
-        /* VÍDEO DE FUNDO */
         .bg-video {
             position: fixed;
             top: 50%;
@@ -68,7 +66,6 @@
             z-index: -1;
         }
 
-        /* TELA DE INÍCIO */
         .start-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -97,7 +94,6 @@
             50% { opacity: 1; transform: scale(1.05); text-shadow: 0 0 20px var(--glow-color); }
         }
 
-        /* CONTÊINER PRINCIPAL */
         .container {
             width: 100%;
             max-width: 850px;
@@ -119,7 +115,7 @@
 
         .header { display: flex; flex-direction: column; align-items: center; margin-bottom: 25px; gap: 10px; text-align: center; }
 
-        /* AVATAR COM ANEL ANIMADO */
+        /* AVATAR E MOLDURA ANIMADA */
         .avatar-wrapper {
             position: relative;
             margin-bottom: 10px;
@@ -137,6 +133,19 @@
             z-index: 2;
         }
 
+        .discord-decoration {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 156px; /* Tamanho proporcional (+20%) para encaixar a moldura certinho */
+            height: 156px;
+            z-index: 4; 
+            pointer-events: none; 
+            display: none; /* Só aparece se o JS detectar a moldura */
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
         .avatar-wrapper::before {
             content: '';
             position: absolute;
@@ -152,21 +161,23 @@
             position: absolute;
             bottom: 5px; right: 10px;
             width: 20px; height: 20px;
-            background-color: #747f8d; /* Começa cinza por padrão */
+            background-color: #747f8d; 
             border: 3px solid #111;
             border-radius: 50%;
-            z-index: 3;
+            z-index: 5;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             transition: background-color 0.3s ease;
         }
 
         @keyframes spin { 100% { transform: rotate(360deg); } }
+        
+        /* A animação precisa afetar tanto a foto quanto a moldura para rodarem juntas! */
         .avatar-wrapper:hover .avatar { transform: scale(1.08) rotate(5deg); border-color: var(--main-accent); }
+        .avatar-wrapper:hover .discord-decoration { transform: translate(-50%, -50%) scale(1.08) rotate(5deg); }
 
         .username { font-size: 2.2em; font-weight: 700; margin: 0; color: var(--main-light); display: flex; align-items: center; gap: 8px; letter-spacing: -0.5px; }
         .bio { color: var(--grey-text); font-size: 1.05em; font-weight: 500; font-style: italic; }
 
-        /* REDES SOCIAIS */
         .socials { display: flex; justify-content: center; gap: 15px; margin: 20px 0 30px 0; }
         .social-btn {
             display: flex; align-items: center; justify-content: center;
@@ -176,7 +187,6 @@
         }
         .social-btn:hover { background-color: var(--main-light); color: #000; transform: translateY(-5px); box-shadow: 0 8px 20px var(--glow-color); border-radius: 50%; }
 
-        /* TAGS SUPERIORES */
         .tags { display: flex; justify-content: center; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; }
         .tag-item {
             display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 0.95em;
@@ -185,7 +195,6 @@
         }
         .tag-item:hover { border-color: var(--main-accent); box-shadow: 0 0 15px var(--glow-color); transform: translateY(-2px); }
 
-        /* GRID DE SEÇÕES */
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 30px; }
         @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } .container { padding: 30px 20px; } }
 
@@ -206,18 +215,15 @@
 
         h2 { font-weight: 700; font-size: 1.3em; display: flex; align-items: center; gap: 10px; margin: 0 0 20px 0; color: var(--main-light); border-bottom: 1px solid var(--item-border); padding-bottom: 10px;}
 
-        /* LISTAS */
         .item-list { list-style: none; padding: 0; margin: 0; }
         .item-list li { font-size: 1.05em; margin-bottom: 12px; display: flex; align-items: center; gap: 12px; font-weight: 500; transition: color 0.2s; }
         .item-list li:hover { color: var(--main-light); }
 
-        /* CORES DOS ÍCONES DA LISTA */
         .icon-claro { color: var(--main-light); }
         .icon-ok { color: var(--alt-accent); }
         .icon-nao { color: #ef4444; text-decoration: line-through; opacity: 0.7; }
         .icon-proximos { color: #a78bfa; }
 
-        /* INTERESSES */
         .interests-container { display: flex; flex-wrap: wrap; gap: 10px; }
         .interest-badge {
             background: var(--item-bg); border: 1px solid var(--item-border);
@@ -227,7 +233,6 @@
         }
         .interest-badge:hover { color: var(--main-light); border-color: var(--alt-accent); background: rgba(255,255,255,0.08); }
 
-        /* LEGENDA */
         .legend {
             text-align: center; margin-top: 20px; color: var(--alt-accent); font-size: 0.9em;
             display: flex; justify-content: center; align-items: center; gap: 20px;
@@ -236,7 +241,6 @@
         }
         .legend span { display: flex; align-items: center; gap: 6px; }
 
-        /* CONTROLE DE ÁUDIO */
         .audio-control {
             position: fixed;
             bottom: 20px;
@@ -278,6 +282,7 @@
     <div class="header">
         <div class="avatar-wrapper">
             <img id="discord-avatar" alt="Avatar" class="avatar" src="https://i.imgur.com/l4U30Qzl.jpg">
+            <img id="discord-decoration" alt="Moldura" class="discord-decoration" src="">
             <div id="discord-status" class="status-dot" title="Carregando..."></div>
         </div>
         
@@ -381,7 +386,6 @@
         }
     });
 
-    // Lógica do botão de pausar/tocar música
     audioBtn.addEventListener('click', function() {
         if (isPlaying) {
             music.pause();
@@ -394,8 +398,8 @@
         }
     });
 
-    // --- CÓDIGO PARA PUXAR AVATAR E STATUS DO DISCORD ---
-    // ATENÇÃO: COLOQUE SEU ID DO DISCORD AQUI ABAIXO!
+    // --- CÓDIGO PARA PUXAR AVATAR, MOLDURA E STATUS DO DISCORD ---
+    // ATENÇÃO: NÃO ESQUEÇA DE COLOCAR SEU ID DE NOVO AQUI ABAIXO!
     const discordId = '1052662634085892188'; 
 
     async function fetchDiscordData() {
@@ -406,14 +410,25 @@
             if (data.success) {
                 const user = data.data.discord_user;
                 
-                // Atualizar o Avatar
+                // 1. Atualizar o Avatar
                 const isGif = user.avatar.startsWith('a_'); 
                 const extension = isGif ? 'gif' : 'png';
                 const avatarUrl = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${extension}?size=512`;
-                
                 document.getElementById('discord-avatar').src = avatarUrl;
 
-                // Atualizar a Bolinha de Status
+                // 2. Atualizar a Moldura (Avatar Decoration)
+                const decorationImg = document.getElementById('discord-decoration');
+                if (user.avatar_decoration_data && user.avatar_decoration_data.asset) {
+                    const asset = user.avatar_decoration_data.asset;
+                    // O Discord entrega as molduras (mesmo animadas) sempre no formato .png pela CDN de decorações
+                    const decorationUrl = `https://cdn.discordapp.com/avatar-decoration-presets/${asset}.png?size=256`;
+                    decorationImg.src = decorationUrl;
+                    decorationImg.style.display = 'block'; // Mostra a imagem
+                } else {
+                    decorationImg.style.display = 'none'; // Esconde se você tirar a moldura no Discord
+                }
+
+                // 3. Atualizar a Bolinha de Status
                 const status = data.data.discord_status;
                 const statusDot = document.getElementById('discord-status');
                 
@@ -434,7 +449,6 @@
         }
     }
 
-    // Executa a função do Discord assim que o script carrega
     fetchDiscordData();
 </script>
 
