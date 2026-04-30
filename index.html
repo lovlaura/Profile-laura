@@ -14,7 +14,9 @@
     <style>
         :root {
             --bg-page: #050505;
-            --box-bg: rgba(15, 15, 15, 0.55);
+            /* Painel central BEM mais transparente */
+            --box-bg: rgba(15, 15, 15, 0.35); 
+            
             /* Cor principal: Roxo Pastel */
             --primary: #a78bfa; 
             --primary-glow: rgba(167, 139, 250, 0.4);
@@ -63,16 +65,16 @@
             top: 50%; left: 50%; min-width: 100vw; min-height: 100vh;
             z-index: -2; transform: translate(-50%, -50%);
             object-fit: cover; 
-            opacity: 0.85; /* Vídeo muito mais visível */
-            filter: blur(0px); /* Sem desfoque */
+            opacity: 1; /* Vídeo 100% visível */
+            filter: blur(0px);
         }
 
         .bg-color {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            /* Camada de sombra bem mais leve para não esconder o vídeo */
+            /* Película escura praticamente invisível no topo, escurece levemente embaixo */
             background: radial-gradient(circle at 15% 50%, rgba(167, 139, 250, 0.08), transparent 40%),
                         radial-gradient(circle at 85% 30%, rgba(167, 139, 250, 0.05), transparent 40%),
-                        linear-gradient(180deg, rgba(5,5,5,0.1) 0%, rgba(5,5,5,0.5) 100%);
+                        linear-gradient(180deg, rgba(5,5,5,0) 0%, rgba(5,5,5,0.3) 100%);
             z-index: -1;
             animation: pulseBg 10s infinite alternate;
         }
@@ -105,7 +107,10 @@
             border-radius: 30px; 
             border: 1px solid rgba(255, 255, 255, 0.05);
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(255, 255, 255, 0.02);
-            position: relative; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            position: relative; 
+            /* Desfoque (blur) do painel reduzido drasticamente para ver o vídeo por trás dele */
+            backdrop-filter: blur(8px); 
+            -webkit-backdrop-filter: blur(8px);
             animation: slideUp 1s ease-out;
         }
 
