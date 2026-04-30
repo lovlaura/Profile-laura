@@ -16,9 +16,10 @@
             --bg-page: #050505;
             --box-bg: rgba(15, 15, 15, 0.35); 
             
-            --primary: #a78bfa; 
-            --primary-glow: rgba(167, 139, 250, 0.4);
-            --primary-bg: rgba(167, 139, 250, 0.1);
+            /* Alterado para tons de Vermelho */
+            --primary: #ef4444; 
+            --primary-glow: rgba(239, 68, 68, 0.4);
+            --primary-bg: rgba(239, 68, 68, 0.1);
             
             --text-color: #f3f4f6;
             --main-accent: #e5e7eb;
@@ -32,7 +33,8 @@
         }
 
         body {
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><circle cx="10" cy="10" r="4" fill="%23a78bfa"/></svg>') 10 10, auto;
+            /* Cursor atualizado para vermelho (%23ef4444) */
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><circle cx="10" cy="10" r="4" fill="%23ef4444"/></svg>') 10 10, auto;
             background-color: var(--bg-page); 
             background-image: radial-gradient(var(--bg-dots) 2px, transparent 2px);
             background-size: 30px 30px;
@@ -49,7 +51,8 @@
         }
 
         a, button, .tag-item, .section-box, .audio-control, .legend span, .start-overlay, .spotify-card .heart-icon, .spotify-card .controls i {
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><circle cx="12" cy="12" r="6" fill="none" stroke="%23a78bfa" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="white"/></svg>') 12 12, pointer !important;
+            /* Cursor atualizado para vermelho (%23ef4444) */
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><circle cx="12" cy="12" r="6" fill="none" stroke="%23ef4444" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="white"/></svg>') 12 12, pointer !important;
         }
 
         ::-webkit-scrollbar { width: 8px; }
@@ -68,8 +71,9 @@
 
         .bg-color {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 15% 50%, rgba(167, 139, 250, 0.08), transparent 40%),
-                        radial-gradient(circle at 85% 30%, rgba(167, 139, 250, 0.05), transparent 40%),
+            /* Fundo pulsante atualizado para vermelho */
+            background: radial-gradient(circle at 15% 50%, rgba(239, 68, 68, 0.08), transparent 40%),
+                        radial-gradient(circle at 85% 30%, rgba(239, 68, 68, 0.05), transparent 40%),
                         linear-gradient(180deg, rgba(5,5,5,0) 0%, rgba(5,5,5,0.3) 100%);
             z-index: -1;
             animation: pulseBg 10s infinite alternate;
@@ -139,12 +143,6 @@
             z-index: 1; animation: spin 4s linear infinite; opacity: 0.6;
         }
 
-        .status-dot {
-            position: absolute; bottom: 8px; right: 12px; width: 22px; height: 22px;
-            background-color: #747f8d; border: 3px solid var(--bg-page); border-radius: 50%;
-            z-index: 5; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); transition: background-color 0.3s ease;
-        }
-
         @keyframes spin { 100% { transform: rotate(360deg); } }
         
         .avatar-wrapper:hover .avatar { transform: scale(1.08) rotate(5deg); border-color: var(--primary); }
@@ -187,8 +185,9 @@
             transition: all 0.5s ease; transform: skewX(-20deg);
         }
 
+        /* Hover atualizado para tons de vermelho */
         .section-box:hover::before { left: 150%; }
-        .section-box:hover { transform: translateY(-4px); border-color: rgba(167, 139, 250, 0.3); box-shadow: 0 15px 35px rgba(0,0,0,0.4); background: rgba(255, 255, 255, 0.04); }
+        .section-box:hover { transform: translateY(-4px); border-color: rgba(239, 68, 68, 0.3); box-shadow: 0 15px 35px rgba(0,0,0,0.4); background: rgba(255, 255, 255, 0.04); }
 
         h2 { font-weight: 700; font-size: 1.3em; display: flex; align-items: center; gap: 10px; margin: 0 0 25px 0; color: var(--main-light); border-bottom: 1px solid var(--item-border); padding-bottom: 15px;}
         h2 i { color: var(--primary); }
@@ -420,8 +419,7 @@
         <div class="avatar-wrapper">
             <img id="discord-avatar" alt="Avatar" class="avatar" src="https://i.imgur.com/l4U30Qzl.jpg">
             <img id="discord-decoration" alt="Moldura" class="discord-decoration" src="">
-            <div id="discord-status" class="status-dot" title="Carregando..."></div>
-        </div>
+            </div>
         
         <h1 class="username">
             <i class="ph-fill ph-moon-stars" style="font-size: 0.7em;"></i>
@@ -552,21 +550,8 @@
                 } else {
                     decorationImg.style.display = 'none'; 
                 }
-
-                const status = data.data.discord_status;
-                const statusDot = document.getElementById('discord-status');
                 
-                statusDot.title = status; 
-                
-                if (status === 'online') {
-                    statusDot.style.backgroundColor = '#22c55e'; 
-                } else if (status === 'idle') {
-                    statusDot.style.backgroundColor = '#f59e0b'; 
-                } else if (status === 'dnd') {
-                    statusDot.style.backgroundColor = '#ef4444'; 
-                } else {
-                    statusDot.style.backgroundColor = '#747f8d'; 
-                }
+                // Lógica da bolinha de status removida do script
             }
         } catch (error) {
             console.error("Erro ao puxar dados do Discord:", error);
