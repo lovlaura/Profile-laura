@@ -44,7 +44,7 @@
             margin: 0;
             padding: 40px 20px;
             display: flex;
-            flex-direction: column; /* Alterado para acomodar responsividade */
+            flex-direction: column; 
             justify-content: center;
             align-items: center;
             min-height: 100vh;
@@ -66,13 +66,12 @@
             top: 50%; left: 50%; min-width: 100vw; min-height: 100vh;
             z-index: -2; transform: translate(-50%, -50%);
             object-fit: cover; 
-            opacity: 1; /* Vídeo 100% visível */
+            opacity: 1; 
             filter: blur(0px);
         }
 
         .bg-color {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            /* Película escura praticamente invisível no topo, escurece levemente embaixo */
             background: radial-gradient(circle at 15% 50%, rgba(167, 139, 250, 0.08), transparent 40%),
                         radial-gradient(circle at 85% 30%, rgba(167, 139, 250, 0.05), transparent 40%),
                         linear-gradient(180deg, rgba(5,5,5,0) 0%, rgba(5,5,5,0.3) 100%);
@@ -109,7 +108,6 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(255, 255, 255, 0.02);
             position: relative; 
-            /* Desfoque (blur) do painel reduzido drasticamente para ver o vídeo por trás dele */
             backdrop-filter: blur(8px); 
             -webkit-backdrop-filter: blur(8px);
             animation: slideUp 1s ease-out;
@@ -242,18 +240,21 @@
         .audio-control.visible { opacity: 1; visibility: visible; }
 
         /* ========================================= */
-        /* --- CSS DO CARD SPOTIFY PERSONALIZADO --- */
+        /* --- CARD SPOTIFY - MENOR E COM BLUR --- */
         /* ========================================= */
         .spotify-card {
             position: fixed;
-            top: 30px;
-            left: 30px;
-            width: 250px;
-            background-color: #ffffff;
-            color: #000000;
-            padding: 16px;
-            border-radius: 6px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+            top: 20px;
+            left: 20px;
+            width: 200px; /* Tamanho reduzido */
+            background-color: var(--box-bg); /* Mesmo fundo transparente do container */
+            backdrop-filter: blur(8px); /* Mesmo desfoque do container */
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.05); /* Borda suave igual ao painel */
+            color: var(--main-light); /* Letras brancas */
+            padding: 15px;
+            border-radius: 20px; /* Bordas arredondadas pra combinar */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             z-index: 1000;
             font-family: 'Quicksand', sans-serif;
             box-sizing: border-box;
@@ -263,10 +264,10 @@
         .spotify-card .album-cover {
             width: 100%;
             aspect-ratio: 1 / 1;
-            border: 3px solid #000000;
-            margin-bottom: 15px;
+            border-radius: 12px; /* Capa com borda redondinha */
+            margin-bottom: 12px;
             overflow: hidden;
-            background-color: #f0f0f0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .spotify-card .album-cover img {
@@ -285,24 +286,28 @@
         .spotify-card .song-info .text {
             display: flex;
             flex-direction: column;
+            overflow: hidden; /* Evita que nomes muito longos quebrem o card */
+            white-space: nowrap;
         }
 
         .spotify-card .title {
             font-weight: 700;
-            font-size: 1.1em;
+            font-size: 1em;
             line-height: 1.2;
-            color: #000000;
+            color: var(--main-light);
+            text-overflow: ellipsis;
+            overflow: hidden;
         }
 
         .spotify-card .artist {
-            font-weight: 600;
-            font-size: 0.85em;
-            color: #000000;
+            font-weight: 500;
+            font-size: 0.8em;
+            color: var(--alt-accent);
         }
 
         .spotify-card .heart-icon {
-            font-size: 1.5em;
-            color: #000000;
+            font-size: 1.3em;
+            color: var(--primary); /* Coração com a cor do tema */
             transition: transform 0.2s ease;
         }
 
@@ -315,85 +320,47 @@
             align-items: center;
             gap: 8px;
             margin-bottom: 12px;
-            font-size: 0.75em;
-            font-weight: 700;
+            font-size: 0.7em;
+            font-weight: 600;
+            color: var(--alt-accent);
         }
 
         .spotify-card .bar {
             flex-grow: 1;
-            height: 5px;
-            background-color: #e5e7eb;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.1);
             border-radius: 3px;
-            position: relative;
         }
 
         .spotify-card .bar .fill {
             width: 33%;
             height: 100%;
-            background-color: #000000;
+            background-color: var(--primary); /* Barrinha na cor do tema */
             border-radius: 3px;
         }
 
         .spotify-card .controls {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
+            gap: 15px; /* Mais próximos e sem coisas desnecessárias */
             align-items: center;
-            margin-bottom: 20px;
             font-size: 1.3em;
         }
 
         .spotify-card .play-btn {
-            font-size: 2.4em;
+            font-size: 2.2em;
+            color: var(--primary);
         }
 
         .spotify-card .controls i {
-            transition: color 0.2s ease;
+            transition: color 0.2s ease, transform 0.2s ease;
         }
 
         .spotify-card .controls i:hover {
             color: var(--primary);
+            transform: scale(1.1);
         }
 
-        .spotify-card .bottom-code {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .spotify-card .bottom-code .logo {
-            font-size: 2.2em;
-        }
-
-        .spotify-card .sound-bars {
-            display: flex;
-            align-items: center;
-            gap: 3px;
-            height: 24px;
-            flex-grow: 1;
-        }
-
-        .spotify-card .sound-bars span {
-            width: 3.5px;
-            background-color: #000000;
-            border-radius: 2px;
-        }
-        
-        /* Criando o formato de "código de barras/onda" do Spotify */
-        .spotify-card .sound-bars span:nth-child(1) { height: 40%; }
-        .spotify-card .sound-bars span:nth-child(2) { height: 70%; }
-        .spotify-card .sound-bars span:nth-child(3) { height: 100%; }
-        .spotify-card .sound-bars span:nth-child(4) { height: 60%; }
-        .spotify-card .sound-bars span:nth-child(5) { height: 85%; }
-        .spotify-card .sound-bars span:nth-child(6) { height: 50%; }
-        .spotify-card .sound-bars span:nth-child(7) { height: 95%; }
-        .spotify-card .sound-bars span:nth-child(8) { height: 45%; }
-        .spotify-card .sound-bars span:nth-child(9) { height: 75%; }
-        .spotify-card .sound-bars span:nth-child(10) { height: 100%; }
-        .spotify-card .sound-bars span:nth-child(11) { height: 60%; }
-        .spotify-card .sound-bars span:nth-child(12) { height: 80%; }
-        .spotify-card .sound-bars span:nth-child(13) { height: 50%; }
-
-        /* Evita que o card sobreponha o perfil principal em telas menores (notebooks pequenos/celulares) */
         @media (max-width: 1350px) {
             .spotify-card {
                 position: relative;
@@ -426,14 +393,14 @@
 
 <div class="spotify-card">
     <div class="album-cover">
-        <img src="https://via.placeholder.com/250" alt="Capa da Música">
+        <img src="https://via.placeholder.com/200" alt="Capa da Música">
     </div>
     <div class="song-info">
         <div class="text">
             <div class="title">Song Title</div>
             <div class="artist">Artist</div>
         </div>
-        <i class="ph ph-heart heart-icon"></i>
+        <i class="ph-fill ph-heart heart-icon"></i>
     </div>
     <div class="progress">
         <span class="time">1:11</span>
@@ -441,17 +408,9 @@
         <span class="time">3:31</span>
     </div>
     <div class="controls">
-        <i class="ph ph-shuffle"></i>
         <i class="ph-fill ph-skip-back"></i>
         <i class="ph-fill ph-play-circle play-btn"></i>
         <i class="ph-fill ph-skip-forward"></i>
-        <i class="ph ph-repeat"></i>
-    </div>
-    <div class="bottom-code">
-        <i class="ph-fill ph-spotify-logo logo"></i>
-        <div class="sound-bars">
-            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-        </div>
     </div>
 </div>
 <div class="container">
