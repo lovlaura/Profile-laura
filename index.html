@@ -63,15 +63,16 @@
             top: 50%; left: 50%; min-width: 100vw; min-height: 100vh;
             z-index: -2; transform: translate(-50%, -50%);
             object-fit: cover; 
-            opacity: 10.50; /* Aumentado para mostrar mais o vídeo */
-            filter: blur(0px); /* Desfoque bem menor */
+            opacity: 0.85; /* Vídeo muito mais visível */
+            filter: blur(0px); /* Sem desfoque */
         }
 
         .bg-color {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            /* Camada de sombra bem mais leve para não esconder o vídeo */
             background: radial-gradient(circle at 15% 50%, rgba(167, 139, 250, 0.08), transparent 40%),
                         radial-gradient(circle at 85% 30%, rgba(167, 139, 250, 0.05), transparent 40%),
-                        linear-gradient(180deg, rgba(5,5,5,0.4) 0%, rgba(5,5,5,0.9) 100%);
+                        linear-gradient(180deg, rgba(5,5,5,0.1) 0%, rgba(5,5,5,0.5) 100%);
             z-index: -1;
             animation: pulseBg 10s infinite alternate;
         }
@@ -94,7 +95,7 @@
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 0.4; transform: scale(0.95); }
+            0%, 100% { opacity: 0.6; transform: scale(0.95); }
             50% { opacity: 1; transform: scale(1.05); text-shadow: 0 0 20px var(--primary-glow); }
         }
 
@@ -199,8 +200,6 @@
         .icon-claro { color: var(--primary); }
         .icon-ok { color: #10b981; } 
         .icon-nao { color: #ef4444; text-decoration: line-through; opacity: 0.6; }
-        
-        /* Cor alterada: Agora é um cinza suave/azulado, bem mais discreto que o amarelo */
         .icon-proximos { color: #9ca3af; } 
 
         .interests-container { display: flex; flex-wrap: wrap; gap: 12px; }
