@@ -13,7 +13,7 @@
     <style>
         :root {
             --bg-page: #050505;
-            --primary: #ffffff; /* Tudo branco e minimalista agora */
+            --primary: #ffffff;
             --text-main: #f3f4f6;
             --text-muted: #9ca3af;
             --glass-bg: rgba(10, 10, 10, 0.4);
@@ -45,7 +45,7 @@
             z-index: -2;
             transform: translate(-50%, -50%);
             object-fit: cover;
-            opacity: 0.25; /* Mais opaco para dar a vibe dark da imagem */
+            opacity: 0.25;
         }
 
         .bg-overlay {
@@ -83,9 +83,8 @@
             border-radius: 25px;
             padding: 40px 50px;
             width: 90%;
-            max-width: 750px; /* Mais largo */
+            max-width: 750px;
             
-            /* Layout Flex Horizontal */
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -107,7 +106,7 @@
             position: relative;
             width: 150px;
             height: 150px;
-            flex-shrink: 0; /* Impede que o avatar encolha */
+            flex-shrink: 0;
         }
 
         .avatar {
@@ -132,11 +131,11 @@
             box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
         }
 
-        /* Área de Conteúdo (Textos e Links) */
+        /* Área de Conteúdo */
         .content-area {
             display: flex;
             flex-direction: column;
-            align-items: flex-start; /* Alinha tudo à esquerda */
+            align-items: flex-start;
             text-align: left;
             width: 100%;
         }
@@ -191,29 +190,28 @@
             box-shadow: 0 0 10px rgba(255,255,255,0.1);
         }
 
-        /* Links / Ícones (ESTILO DA IMAGEM) */
+        /* Links / Ícones */
         .links-container {
             display: flex;
             flex-direction: row;
-            gap: 25px; /* Espaço entre os ícones */
+            gap: 25px;
             align-items: center;
         }
 
         .icon-link {
             color: #ffffff;
-            font-size: 2.8em; /* Ícones grandes */
+            font-size: 2.8em;
             text-decoration: none;
             transition: all 0.3s ease;
-            /* Efeito de brilho branco da sua imagem */
             filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
         }
 
         .icon-link:hover {
             transform: scale(1.15) translateY(-3px);
-            filter: drop-shadow(0 0 18px rgba(255, 255, 255, 1)); /* Brilho aumenta ao passar o mouse */
+            filter: drop-shadow(0 0 18px rgba(255, 255, 255, 1));
         }
 
-        /* Responsividade: Se a tela for pequena (celular), volta a ficar em pé */
+        /* Responsividade */
         @media (max-width: 650px) {
             .profile-card {
                 flex-direction: column;
@@ -253,7 +251,7 @@
         <span><i class="ph-fill ph-play-circle"></i> enter</span>
     </div>
 
-    <video autoplay loop muted playsinline id="bg-video" class="bg-video">
+    <video loop muted playsinline id="bg-video" class="bg-video">
         <source src="https://files.catbox.moe/auyhd8.mp4" type="video/mp4">
     </video>
     <div class="bg-overlay"></div>
@@ -261,6 +259,7 @@
     <audio id="bg-music" loop>
         <source src="https://files.catbox.moe/ehvzkr.mp3" type="audio/mpeg">
     </audio>
+    
     <button id="audio-btn" class="audio-control" title="Pausar/Tocar">
         <i id="audio-icon" class="ph-fill ph-speaker-high"></i>
     </button>
@@ -274,7 +273,7 @@
         
         <div class="content-area">
             <h1>Laura</h1>
-            <p class="bio">lonellines</p>
+            <p class="bio">loneliness</p>
 
             <div class="tags">
                 <div class="tag"><i class="ph-fill ph-gender-transgender"></i> Transgênero</div>
@@ -303,6 +302,7 @@
     <script>
         const overlay = document.getElementById('start-overlay');
         const music = document.getElementById('bg-music');
+        const video = document.getElementById('bg-video'); // Pegamos o vídeo no JS
         const audioBtn = document.getElementById('audio-btn');
         const audioIcon = document.getElementById('audio-icon');
         let isPlaying = false;
@@ -314,6 +314,12 @@
             audioBtn.classList.add('visible');
             music.volume = 0.3;
             
+            // Seta os dois para 0 para garantir que começam juntos
+            music.currentTime = 0;
+            video.currentTime = 0;
+
+            // Inicia o vídeo e a música juntos
+            video.play();
             music.play().then(() => {
                 isPlaying = true;
             }).catch(() => {
@@ -324,9 +330,11 @@
         audioBtn.addEventListener('click', function() {
             if (isPlaying) {
                 music.pause();
+                video.pause(); // Pausa o vídeo junto com a música
                 audioIcon.classList.replace('ph-speaker-high', 'ph-speaker-slash');
             } else {
                 music.play();
+                video.play(); // Despausa o vídeo junto com a música
                 audioIcon.classList.replace('ph-speaker-slash', 'ph-speaker-high');
             }
             isPlaying = !isPlaying;
