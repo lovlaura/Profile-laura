@@ -16,10 +16,10 @@
             --bg-page: #050505;
             --box-bg: rgba(15, 15, 15, 0.35); 
             
-            /* Alterado para tons de Azul */
-            --primary: #3b82f6; 
-            --primary-glow: rgba(59, 130, 246, 0.4);
-            --primary-bg: rgba(59, 130, 246, 0.1);
+            /* Alterado para tons de Verde (Verde escuro, mas não tão escuro) */
+            --primary: #16a34a; 
+            --primary-glow: rgba(22, 163, 74, 0.4);
+            --primary-bg: rgba(22, 163, 74, 0.1);
             
             --text-color: #f3f4f6;
             --main-accent: #e5e7eb;
@@ -33,8 +33,8 @@
         }
 
         body {
-            /* Cursor atualizado para azul (%233b82f6) */
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><circle cx="10" cy="10" r="4" fill="%233b82f6"/></svg>') 10 10, auto;
+            /* Cursor atualizado para verde (%2316a34a) */
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><circle cx="10" cy="10" r="4" fill="%2316a34a"/></svg>') 10 10, auto;
             background-color: var(--bg-page); 
             background-image: radial-gradient(var(--bg-dots) 2px, transparent 2px);
             background-size: 30px 30px;
@@ -51,8 +51,8 @@
         }
 
         a, button, .tag-item, .section-box, .audio-control, .legend span, .start-overlay {
-            /* Cursor atualizado para azul (%233b82f6) */
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><circle cx="12" cy="12" r="6" fill="none" stroke="%233b82f6" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="white"/></svg>') 12 12, pointer !important;
+            /* Cursor atualizado para verde (%2316a34a) */
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><circle cx="12" cy="12" r="6" fill="none" stroke="%2316a34a" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="white"/></svg>') 12 12, pointer !important;
         }
 
         ::-webkit-scrollbar { width: 8px; }
@@ -71,9 +71,9 @@
 
         .bg-color {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            /* Fundo pulsante atualizado para azul */
-            background: radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.08), transparent 40%),
-                        radial-gradient(circle at 85% 30%, rgba(59, 130, 246, 0.05), transparent 40%),
+            /* Fundo pulsante atualizado para verde */
+            background: radial-gradient(circle at 15% 50%, rgba(22, 163, 74, 0.08), transparent 40%),
+                        radial-gradient(circle at 85% 30%, rgba(22, 163, 74, 0.05), transparent 40%),
                         linear-gradient(180deg, rgba(5,5,5,0) 0%, rgba(5,5,5,0.3) 100%);
             z-index: -1;
             animation: pulseBg 10s infinite alternate;
@@ -185,9 +185,9 @@
             transition: all 0.5s ease; transform: skewX(-20deg);
         }
 
-        /* Hover atualizado para tons de azul */
+        /* Hover atualizado para tons de verde */
         .section-box:hover::before { left: 150%; }
-        .section-box:hover { transform: translateY(-4px); border-color: rgba(59, 130, 246, 0.3); box-shadow: 0 15px 35px rgba(0,0,0,0.4); background: rgba(255, 255, 255, 0.04); }
+        .section-box:hover { transform: translateY(-4px); border-color: rgba(22, 163, 74, 0.3); box-shadow: 0 15px 35px rgba(0,0,0,0.4); background: rgba(255, 255, 255, 0.04); }
 
         h2 { font-weight: 700; font-size: 1.3em; display: flex; align-items: center; gap: 10px; margin: 0 0 25px 0; color: var(--main-light); border-bottom: 1px solid var(--item-border); padding-bottom: 15px;}
         h2 i { color: var(--primary); }
