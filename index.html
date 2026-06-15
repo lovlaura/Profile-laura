@@ -16,8 +16,9 @@
             --primary: #ffffff;
             --text-main: #f3f4f6;
             --text-muted: #9ca3af;
-            --glass-bg: rgba(10, 10, 10, 0.4);
-            --glass-border: rgba(255, 255, 255, 0.05);
+            --glass-bg: rgba(15, 15, 15, 0.45);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-shadow: rgba(0, 0, 0, 0.5);
         }
 
         * {
@@ -35,6 +36,7 @@
             align-items: center;
             min-height: 100vh;
             overflow: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
         .bg-video {
@@ -44,59 +46,66 @@
             z-index: -2;
             transform: translate(-50%, -50%);
             object-fit: cover;
-            opacity: 0.25;
+            opacity: 0.35;
             background-color: #050505; 
+            filter: blur(2px);
+            transition: filter 1s ease;
         }
 
         .bg-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.8) 100%);
+            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.8) 100%);
             z-index: -1;
         }
 
         .start-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(15px);
+            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(20px);
             z-index: 9999; display: flex; align-items: center; justify-content: center;
-            color: var(--primary); font-size: 1.5em; font-weight: 600; cursor: pointer;
+            color: var(--primary); font-size: 1.6em; font-weight: 600; cursor: pointer;
             transition: opacity 0.8s ease, visibility 0.8s ease;
+            letter-spacing: 2px;
         }
 
         .start-overlay span {
-            animation: pulse-start 2s infinite;
-            display: flex; align-items: center; gap: 10px;
+            animation: pulse-start 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+            display: flex; align-items: center; gap: 12px;
         }
 
         @keyframes pulse-start {
-            0%, 100% { opacity: 0.6; transform: scale(0.98); }
-            50% { opacity: 1; transform: scale(1.02); text-shadow: 0 0 15px rgba(255,255,255,0.8); }
+            0%, 100% { opacity: 0.5; transform: scale(0.98); }
+            50% { opacity: 1; transform: scale(1.02); text-shadow: 0 0 20px rgba(255,255,255,0.6); }
         }
 
         .profile-card {
             background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--glass-border);
-            border-radius: 25px;
-            padding: 40px 50px;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            border-left: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 30px;
+            padding: 50px 40px;
             width: 90%;
-            max-width: 750px;
-            
+            max-width: 420px; 
             display: flex;
-            flex-direction: row;
-            align-items: center;
-            gap: 40px;
-            
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
-            transform: translateY(30px);
+            flex-direction: column; 
+            align-items: center; 
+            gap: 20px;
+            box-shadow: 0 30px 60px var(--glass-shadow);
             opacity: 0;
-            animation: slideUp 1s ease-out forwards;
-            animation-delay: 0.5s;
+            transform: translateY(40px);
+            animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards, floatCard 6s ease-in-out infinite 1s;
         }
 
         @keyframes slideUp {
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes floatCard {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         .avatar-container {
@@ -104,15 +113,16 @@
             width: 150px;
             height: 150px;
             flex-shrink: 0;
+            margin-bottom: 5px;
         }
 
         .avatar {
             width: 100%; height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid rgba(255,255,255,0.2);
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative; z-index: 2;
             background-color: #2c2f33;
         }
@@ -125,65 +135,96 @@
         }
 
         .avatar-container:hover .avatar {
-            transform: scale(1.03);
-            box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 0 35px rgba(255, 255, 255, 0.15);
         }
 
         .content-area {
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
-            text-align: left;
+            align-items: center; 
+            text-align: center;
             width: 100%;
         }
 
         h1 {
-            font-size: 2.2em;
+            font-size: 2.4em;
             font-weight: 800;
-            margin-bottom: 5px;
+            margin-bottom: 2px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.8);
+            letter-spacing: -0.5px;
+        }
+
+        .discord-status {
             display: flex;
             align-items: center;
             gap: 8px;
-            text-shadow: 0 4px 15px rgba(0,0,0,0.9);
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 15px;
         }
 
-        h1 i { color: var(--primary); font-size: 0.8em; }
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #747f8d; 
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
 
         .bio {
             color: var(--text-muted);
-            font-size: 0.9em;
-            letter-spacing: 3px;
+            font-size: 0.95em;
+            letter-spacing: 4px;
             text-transform: uppercase;
-            font-weight: 500;
+            font-weight: 600;
             margin-bottom: 25px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
 
         .tags {
             display: flex;
-            gap: 12px;
-            margin-bottom: 30px;
+            justify-content: center; 
+            gap: 10px;
+            margin-bottom: 35px;
             flex-wrap: wrap;
         }
 
         .tag {
-            background: transparent;
-            border: 1px solid rgba(255,255,255,0.15);
-            padding: 6px 14px;
-            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 8px 16px;
+            border-radius: 12px;
             font-size: 0.85em;
-            font-weight: 600;
+            font-weight: 700;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             color: var(--text-muted);
             transition: all 0.3s ease;
             cursor: default;
+            backdrop-filter: blur(5px);
+        }
+
+        .tag i {
+            color: #8c8c8c;
+            font-size: 1.1em;
         }
 
         .tag:hover {
             color: var(--text-main);
-            border-color: rgba(255,255,255,0.5);
-            box-shadow: 0 0 10px rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.3);
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
         .links-container {
@@ -191,59 +232,91 @@
             flex-direction: row;
             gap: 25px;
             align-items: center;
+            justify-content: center; 
         }
 
         .icon-link {
-            color: #ffffff;
-            font-size: 2.8em;
+            color: #8c8c8c;
+            font-size: 2.5em;
             text-decoration: none;
-            transition: all 0.3s ease;
-            filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.8));
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .icon-link::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: currentColor;
+            border-radius: 50%;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%) scale(0);
+            transition: transform 0.3s ease;
+            opacity: 0.5;
+            filter: blur(4px);
         }
 
         .icon-link:hover {
-            transform: scale(1.15) translateY(-3px);
-            filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.8));
+            color: #d9d9d9;
+            transform: scale(1.15) translateY(-5px);
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+        }
+
+        .icon-link:hover::after {
+            transform: translateX(-50%) scale(1);
         }
 
         .audio-control {
-            position: fixed; bottom: 20px; right: 20px;
-            width: 45px; height: 45px;
-            background: transparent; border: 1px solid rgba(255,255,255,0.2);
+            position: fixed; bottom: 30px; right: 30px;
+            width: 50px; height: 50px;
+            background: rgba(10, 10, 10, 0.5); 
+            border: 1px solid rgba(255,255,255,0.15);
             border-radius: 50%; color: rgba(255,255,255,0.7);
             display: flex; align-items: center; justify-content: center;
-            font-size: 1.2em; cursor: pointer; backdrop-filter: blur(5px);
+            font-size: 1.4em; cursor: pointer; backdrop-filter: blur(10px);
             transition: all 0.3s ease; z-index: 1000; opacity: 0; visibility: hidden;
+            transform: translateY(20px);
         }
 
         .audio-control:hover { 
-            color: #fff; border-color: #fff; 
-            box-shadow: 0 0 15px rgba(255,255,255,0.5);
+            color: #fff; 
+            border-color: rgba(255,255,255,0.5); 
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.1) translateY(0);
+            box-shadow: 0 0 20px rgba(255,255,255,0.2);
         }
         
-        .audio-control.visible { opacity: 1; visibility: visible; }
+        .audio-control.visible { 
+            opacity: 1; 
+            visibility: visible; 
+            transform: translateY(0);
+        }
 
         .toast {
             position: fixed;
-            bottom: 30px;
+            bottom: 40px;
             left: 50%;
             transform: translateX(-50%) translateY(100px);
-            background: rgba(20, 20, 20, 0.8);
-            backdrop-filter: blur(10px);
+            background: rgba(15, 15, 15, 0.85);
+            backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
             color: #fff;
-            padding: 12px 24px;
+            padding: 14px 28px;
             border-radius: 30px;
-            font-size: 0.9em;
+            font-size: 0.95em;
             font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             opacity: 0;
             visibility: hidden;
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             z-index: 9999;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            letter-spacing: 0.5px;
         }
 
         .toast.show {
@@ -253,24 +326,10 @@
         }
 
         .toast i {
-            color: #a3e635;
-            font-size: 1.2em;
+            color: var(--text-main);
+            font-size: 1.3em;
         }
 
-        @media (max-width: 650px) {
-            .profile-card {
-                flex-direction: column;
-                text-align: center;
-                padding: 40px 20px;
-                gap: 20px;
-            }
-            .content-area {
-                align-items: center;
-            }
-            .tags {
-                justify-content: center;
-            }
-        }
     </style>
 </head>
 <body>
@@ -288,40 +347,39 @@
         <source src="https://files.catbox.moe/r24bk8.mp3" type="audio/mpeg">
     </audio>
     
-    <button id="audio-btn" class="audio-control" title="Pausar/Tocar áudio">
+    <button id="audio-btn" class="audio-control" title="audio">
         <i id="audio-icon" class="ph-fill ph-speaker-high"></i>
     </button>
 
     <main class="profile-card">
         
         <div class="avatar-container">
-            <img id="discord-avatar" alt="Avatar da Laura" class="avatar" src="https://cdn.discordapp.com/embed/avatars/1.png">
-            <img id="discord-decoration" alt="Moldura do Discord" class="discord-decoration" src="">
+            <img id="discord-avatar" alt="avatar" class="avatar" src="https://cdn.discordapp.com/embed/avatars/1.png">
+            <img id="discord-decoration" alt="decor" class="discord-decoration" src="">
         </div>
         
         <div class="content-area">
             <h1>Laura</h1>
-            <p class="bio">loneliness</p>
+            
+            <div id="discord-status-container" class="discord-status">
+                <div id="status-dot" class="status-dot"></div>
+                <span id="status-text">loading...</span>
+            </div>
+
+            <p class="bio">She's a Killer Queen</p>
 
             <div class="tags">
                 <div class="tag"><i class="ph-fill ph-gender-transgender"></i> Transgênero</div>
+                <div class="tag"><i class="ph-fill ph-star"></i> Ela/Dela</div>
             </div>
 
             <nav class="links-container">
-                <a href="https://instagram.com/l4ahzy" target="_blank" class="icon-link" aria-label="Instagram">
+                <a href="https://instagram.com/l4ahzy" target="_blank" class="icon-link insta" aria-label="ig">
                     <i class="ph-fill ph-instagram-logo"></i>
                 </a>
                 
-                <a href="#" id="copy-discord" class="icon-link" aria-label="Copiar Nick do Discord" title="Copiar Nick">
+                <a href="#" id="copy-discord" class="icon-link discord" aria-label="discord" title="copy">
                     <i class="ph-fill ph-discord-logo"></i>
-                </a>
-
-                <a href="#" target="_blank" class="icon-link" aria-label="Spotify">
-                    <i class="ph-fill ph-spotify-logo"></i>
-                </a>
-
-                <a href="#" target="_blank" class="icon-link" aria-label="Steam">
-                    <i class="ph-fill ph-steam-logo"></i>
                 </a>
             </nav>
         </div>
@@ -329,7 +387,7 @@
     </main>
 
     <div id="toast" class="toast">
-        <i class="ph-fill ph-check-circle"></i> lauracastles copiado!
+        <i class="ph-fill ph-check-circle"></i> copiado!
     </div>
 
     <script>
@@ -340,19 +398,31 @@
         const audioIcon = document.getElementById('audio-icon');
         let isPlaying = false;
 
+        function fadeInAudio(audioObj, targetVolume, duration) {
+            audioObj.volume = 0;
+            const step = targetVolume / (duration / 50);
+            const fadeInterval = setInterval(() => {
+                if (audioObj.volume + step < targetVolume) {
+                    audioObj.volume += step;
+                } else {
+                    audioObj.volume = targetVolume;
+                    clearInterval(fadeInterval);
+                }
+            }, 50);
+        }
+
         overlay.addEventListener('click', function() {
             overlay.style.opacity = '0';
             setTimeout(() => overlay.style.visibility = 'hidden', 800);
-            
+            video.style.filter = 'blur(0px)';
             audioBtn.classList.add('visible');
-            music.volume = 0.3;
             
             music.currentTime = 0;
             video.currentTime = 0;
-
             video.play();
             music.play().then(() => {
                 isPlaying = true;
+                fadeInAudio(music, 0.3, 2000); 
             }).catch(() => {
                 audioIcon.classList.replace('ph-speaker-high', 'ph-speaker-slash');
             });
@@ -377,17 +447,14 @@
 
         discordBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            
             navigator.clipboard.writeText('lauracastles').then(() => {
                 toast.classList.add('show');
-                
                 clearTimeout(toastTimeout);
-                
                 toastTimeout = setTimeout(() => {
                     toast.classList.remove('show');
                 }, 3000);
             }).catch(err => {
-                console.error('Erro ao copiar o nick: ', err);
+                console.error('erro: copy', err);
             });
         });
 
@@ -400,6 +467,7 @@
 
                 if (data.success) {
                     const user = data.data.discord_user;
+                    const lanyardData = data.data;
                     
                     const isGif = user.avatar && user.avatar.startsWith('a_'); 
                     const extension = isGif ? 'gif' : 'png';
@@ -415,13 +483,49 @@
                         decorationImg.src = `https://cdn.discordapp.com/avatar-decoration-presets/${asset}.png?size=256`;
                         decorationImg.style.display = 'block'; 
                     }
+
+                    const statusDot = document.getElementById('status-dot');
+                    const statusText = document.getElementById('status-text');
+                    
+                    let statusColor = '#747f8d'; 
+                    let statusString = 'offline';
+
+                    if (lanyardData.discord_status === 'online') { statusColor = '#23a559'; statusString = 'online'; }
+                    else if (lanyardData.discord_status === 'idle') { statusColor = '#f0b232'; statusString = 'idle'; }
+                    else if (lanyardData.discord_status === 'dnd') { statusColor = '#f23f42'; statusString = 'dnd'; }
+
+                    if (lanyardData.listening_to_spotify) {
+                        statusString = 'spotify';
+                        statusColor = '#1DB954';
+                        statusText.innerHTML = `<i class="ph-fill ph-spotify-logo" style="color: #1DB954"></i> ${statusString}`;
+                    } else if (lanyardData.activities && lanyardData.activities.length > 0) {
+                        const game = lanyardData.activities.find(a => a.type === 0); 
+                        if (game) {
+                            statusString = `jogando ${game.name}`;
+                            statusText.innerText = statusString;
+                        } else {
+                            statusText.innerText = statusString;
+                        }
+                    } else {
+                        statusText.innerText = statusString;
+                    }
+                    
+                    if (!lanyardData.listening_to_spotify) {
+                        statusText.style.color = "var(--text-muted)";
+                    }
+
+                    statusDot.style.backgroundColor = statusColor;
+                    statusDot.style.boxShadow = `0 0 8px ${statusColor}`;
                 }
             } catch (error) {
-                console.warn("Erro: API");
+                console.warn("erro: lanyard");
+                document.getElementById('status-text').innerText = 'offline';
             }
         }
 
         fetchDiscordData();
+        setInterval(fetchDiscordData, 10000);
+
     </script>
 </body>
 </html>
