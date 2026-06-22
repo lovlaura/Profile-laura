@@ -46,9 +46,9 @@
             z-index: -2;
             transform: translate(-50%, -50%);
             object-fit: cover;
-            opacity: 0.35;
+            opacity: 0.20; /* Deixou o vídeo mais escuro (antes era 0.35) */
             background-color: #050505; 
-            filter: blur(2px);
+            filter: blur(5px); /* Aumentou o desfoque sutilmente (antes era 2px) */
             transition: filter 1s ease;
         }
 
@@ -493,7 +493,7 @@
         overlay.addEventListener('click', function() {
             overlay.style.opacity = '0';
             setTimeout(() => overlay.style.visibility = 'hidden', 800);
-            video.style.filter = 'blur(0px)';
+            video.style.filter = 'blur(5px)'; /* Mantém o desfoque de 5px após clicar em enter */
             
             audioBtn.classList.add('visible');
             viewCounter.classList.add('visible'); 
@@ -549,7 +549,7 @@
                 const data = await response.json();
 
                 if (data.success) {
-                    const user = data.data.discord_user;
+                    const user = data.discord_user;
                     const lanyardData = data.data;
                     
                     const isGif = user.avatar && user.avatar.startsWith('a_'); 
