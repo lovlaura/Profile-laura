@@ -549,7 +549,7 @@
                 const data = await response.json();
 
                 if (data.success) {
-                    const user = data.discord_user;
+                    const user = data.data.discord_user;
                     const lanyardData = data.data;
                     
                     const isGif = user.avatar && user.avatar.startsWith('a_'); 
