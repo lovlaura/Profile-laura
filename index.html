@@ -15,8 +15,8 @@
             --text-main: #ffffff;
             --text-muted: #888888;
             --bg-dark: #030303;
-            --neon-green: #4ade80;
-            --neon-green-glow: rgba(130, 255, 0, 0.35);
+            --neon-green: #b1f700;
+            --neon-green-glow: rgba(177, 247, 0, 0.35);
             --rotX: 0deg;
             --rotY: 0deg;
         }
@@ -81,7 +81,7 @@
             position: fixed;
             top: 50%; left: 50%; width: 100vw; height: 100vh;
             transform: translate(-50%, -50%);
-            background: radial-gradient(circle at center, rgba(110,255,0,0.1), transparent 50%);
+            background: radial-gradient(circle at center, rgba(177, 247, 0, 0.1), transparent 50%);
             z-index: -1;
             pointer-events: none;
             opacity: 0.3; 
@@ -133,7 +133,7 @@
             inset: 0;
             border-radius: 20px;
             background: linear-gradient(180deg, rgba(18,18,18,.58), rgba(8,8,8,.72));
-            border: 1px solid rgba(120,255,0,.08);
+            border: 1px solid rgba(177, 247, 0, 0.08);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             overflow: hidden;
@@ -207,7 +207,48 @@
             justify-content: center;
             animation: slowBreathe 8s infinite ease-in-out;
             margin-bottom: 5px;
+            z-index: 5;
         }
+
+        /* Vinyl Record Animations & Styling */
+        .vinyl-wrapper {
+            position: absolute;
+            top: 5px; left: 5px;
+            z-index: -1;
+            transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .vinyl-record {
+            width: 110px; height: 110px;
+            border-radius: 50%;
+            background: repeating-radial-gradient(#111 0, #111 4px, #222 5px, #222 6px);
+            border: 2px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 15px rgba(0,0,0,0.9);
+            animation: spin 3s linear infinite;
+            animation-play-state: paused;
+        }
+
+        .vinyl-record::after {
+            content: '';
+            width: 35px; height: 35px;
+            background: var(--neon-green);
+            border-radius: 50%;
+            border: 4px solid #0a0a0a;
+            box-shadow: inset 0 0 8px rgba(0,0,0,0.6);
+        }
+
+        .avatar-container.playing .vinyl-wrapper {
+            transform: translateX(70px);
+        }
+
+        .avatar-container.playing .vinyl-record {
+            animation-play-state: running;
+        }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
         
         .avatar {
             width: 100%;
@@ -216,6 +257,7 @@
             object-fit: cover;
             transition: filter 0.4s ease, transform 0.4s ease;
             filter: grayscale(15%);
+            z-index: 2;
         }
         
         .avatar-container:hover .avatar { 
@@ -235,7 +277,7 @@
             letter-spacing: 8px;
             text-transform: uppercase;
             line-height: 1;
-            text-shadow: 0 0 3px rgba(130, 255, 0, 0.2);
+            text-shadow: 0 0 3px rgba(177, 247, 0, 0.2);
         }
 
         .subtitle {
@@ -253,6 +295,11 @@
             letter-spacing: 0.5em;
             color: var(--neon-green);
             opacity: 0.8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 8px;
         }
 
         .status-wrapper {
@@ -271,9 +318,9 @@
         }
         
         @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.6); }
-            70% { box-shadow: 0 0 0 8px rgba(74, 222, 128, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+            0% { box-shadow: 0 0 0 0 rgba(177, 247, 0, 0.6); }
+            70% { box-shadow: 0 0 0 8px rgba(177, 247, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(177, 247, 0, 0); }
         }
         
         .status-dot.online {
@@ -304,7 +351,7 @@
         .tag-simple:hover {
             border-color: var(--neon-green);
             color: var(--neon-green);
-            box-shadow: 0 0 8px rgba(130, 255, 0, 0.15);
+            box-shadow: 0 0 8px rgba(177, 247, 0, 0.15);
         }
 
         .links-row {
@@ -324,7 +371,7 @@
         .link-icon:hover {
             color: var(--neon-green);
             transform: scale(1.1) translateY(-3px);
-            filter: drop-shadow(0 0 8px rgba(74, 222, 128, 0.5));
+            filter: drop-shadow(0 0 8px rgba(177, 247, 0, 0.5));
         }
 
         .side-details {
@@ -444,7 +491,7 @@
             visibility: hidden;
             transition: all 0.4s ease;
             z-index: 9999;
-            border: 1px solid rgba(74, 222, 128, 0.2);
+            border: 1px solid rgba(177, 247, 0, 0.2);
         }
         
         .toast.show {
@@ -514,7 +561,10 @@
         <div class="decor top-right">✦</div>
         <div class="decor bottom-left"></div>
 
-        <div class="avatar-container interactive">
+        <div class="avatar-container interactive" id="avatar-container">
+            <div class="vinyl-wrapper">
+                <div class="vinyl-record"></div>
+            </div>
             <img id="discord-avatar" alt="avatar" class="avatar" src="https://cdn.discordapp.com/embed/avatars/1.png">
             <img id="discord-decoration" alt="decor" class="discord-decoration" src="">
         </div>
@@ -528,7 +578,7 @@
 
         <p class="subtitle">
             Why can't I<br>move on forward?<br>
-            <span>✦ 1991 ✦</span>
+            <span><i class="ph-fill ph-vinyl-record"></i> 1991 <i class="ph-fill ph-guitar"></i></span>
         </p>
 
         <div class="tag-simple interactive">Ela / Dela</div>
@@ -545,7 +595,7 @@
     </main>
 
     <div id="toast" class="toast">
-        Copiado
+        Copied
     </div>
 
     <script>
@@ -589,6 +639,7 @@
         const overlay = document.getElementById('start-overlay');
         const mainContent = document.getElementById('main-content');
         const cornerControls = document.getElementById('corner-controls');
+        const avatarContainer = document.getElementById('avatar-container');
         
         const music = document.getElementById('bg-music');
         const video = document.getElementById('bg-video');
@@ -645,6 +696,7 @@
             video.play();
             music.play().then(() => {
                 isPlaying = true;
+                avatarContainer.classList.add('playing'); // Inicia o disco de vinil
                 fadeInAudio(music, 0.4, 2000); 
             }).catch(() => {
                 audioIcon.classList.replace('ph-speaker-high', 'ph-speaker-slash');
@@ -654,9 +706,11 @@
         audioBtn.addEventListener('click', function() {
             if (isPlaying) {
                 music.pause();
+                avatarContainer.classList.remove('playing');
                 audioIcon.classList.replace('ph-speaker-high', 'ph-speaker-slash');
             } else {
                 music.play();
+                avatarContainer.classList.add('playing');
                 audioIcon.classList.replace('ph-speaker-slash', 'ph-speaker-high');
             }
             isPlaying = !isPlaying;
@@ -738,20 +792,20 @@
                     statusDot.classList.remove('online');
 
                     if (lanyardData.discord_status === 'online') { 
-                        statusColor = '#4ade80'; 
-                        statusString = 'online agora';
+                        statusColor = 'var(--neon-green)'; 
+                        statusString = 'online';
                         statusDot.classList.add('online');
                     }
-                    else if (lanyardData.discord_status === 'idle') { statusColor = '#f0b232'; statusString = 'ausente'; }
-                    else if (lanyardData.discord_status === 'dnd') { statusColor = '#f23f42'; statusString = 'não perturbe'; }
+                    else if (lanyardData.discord_status === 'idle') { statusColor = '#f0b232'; statusString = 'idle'; }
+                    else if (lanyardData.discord_status === 'dnd') { statusColor = '#f23f42'; statusString = 'do not disturb'; }
 
                     if (lanyardData.listening_to_spotify) {
-                        statusString = 'ouvindo spotify'; 
+                        statusString = 'listening to spotify'; 
                         statusColor = '#1DB954';
                         statusText.innerHTML = `<i class="ph ph-spotify-logo" style="color: #1DB954"></i> ${statusString}`;
                     } else if (lanyardData.activities && lanyardData.activities.length > 0) {
                         const game = lanyardData.activities.find(a => a.type === 0); 
-                        if (game) statusString = `jogando ${game.name.toLowerCase()}`;
+                        if (game) statusString = `playing ${game.name.toLowerCase()}`;
                         statusText.innerText = statusString;
                     } else {
                         statusText.innerText = statusString;
