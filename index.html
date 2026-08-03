@@ -594,7 +594,7 @@
         <div class="tag-simple interactive">She / Her</div>
 
         <nav class="links-row">
-            <a href="https://instagram.com/lwurasz" target="_blank" class="link-icon interactive" aria-label="Instagram">
+            <a href="https://instagram.com/pokedois" target="_blank" class="link-icon interactive" aria-label="Instagram">
                 <i class="ph ph-instagram-logo"></i>
             </a>
             <a href="#" id="copy-discord" class="link-icon interactive" aria-label="Discord" title="Copiar usuário">
@@ -707,7 +707,7 @@
             music.play().then(() => {
                 isPlaying = true;
                 avatarContainer.classList.add('playing'); 
-                /* VOLUME AUMENTADO PARA 1.0 (MAX) */
+            
                 fadeInAudio(music, 1.0, 2000); 
             }).catch(() => {
                 audioIcon.classList.replace('ph-speaker-high', 'ph-speaker-slash');
@@ -803,7 +803,7 @@
                     statusDot.classList.remove('online');
 
                     if (lanyardData.discord_status === 'online') { 
-                        statusColor = 'var(--neon-green)'; /* Verde online voltou */
+                        statusColor = 'var(--neon-green)'; 
                         statusString = 'online';
                         statusDot.classList.add('online');
                     }
