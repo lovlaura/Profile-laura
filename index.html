@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laura.exe - Windows 98</title>
+    <title>Windows - laura</title>
     
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
     <style>
         :root {
-            /* Paleta Windows 98 Expandida */
             --win-bg: #c0c0c0;
             --win-teal: #008080;
             --win-blue: #000080;
@@ -17,7 +16,6 @@
             --win-text: #000000;
             --win-text-light: #ffffff;
             
-            /* Bordas 3D */
             --border-light: #ffffff;
             --border-shadow: #808080;
             --border-dark: #000000;
@@ -29,11 +27,10 @@
             margin: 0;
             padding: 0;
             font-family: 'Pixelated MS Sans Serif', 'MS Sans Serif', Tahoma, sans-serif;
-            user-select: none; /* Evita selecionar texto ao arrastar a janela */
+            user-select: none;
         }
 
         body {
-            /* O fundo sólido foi mantido como fallback caso o vídeo não carregue */
             background-color: var(--win-teal);
             color: var(--win-text);
             min-height: 100vh;
@@ -43,19 +40,17 @@
             justify-content: center;
         }
 
-        /* --- VÍDEO DE FUNDO --- */
         .bg-video {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            object-fit: cover; /* Faz o vídeo preencher a tela toda sem distorcer */
-            z-index: 0; /* Fica no fundo */
-            pointer-events: none; /* Ignora cliques para não atrapalhar a navegação */
+            object-fit: cover;
+            z-index: 0;
+            pointer-events: none;
         }
 
-        /* Efeito Monitor de Tubo (Scanlines) - Feito com CSS */
         .scanlines {
             position: fixed;
             inset: 0;
@@ -71,7 +66,6 @@
             z-index: 9999;
         }
 
-        /* Ícones da Área de Trabalho */
         .desktop {
             position: fixed;
             top: 20px;
@@ -79,7 +73,7 @@
             display: flex;
             flex-direction: column;
             gap: 25px;
-            z-index: 1; /* Fica na frente do vídeo */
+            z-index: 1;
         }
 
         .desktop-icon {
@@ -107,17 +101,16 @@
 
         .desktop-icon span {
             padding: 2px 4px;
-            text-shadow: 1px 1px 2px black; /* Sombra para ler melhor por cima do vídeo */
+            text-shadow: 1px 1px 2px black;
         }
 
-        /* ----- ESTILOS DE JANELA WIN98 ----- */
         .window {
             background-color: var(--win-bg);
             border-top: 2px solid var(--border-light);
             border-left: 2px solid var(--border-light);
             border-right: 2px solid var(--border-dark);
             border-bottom: 2px solid var(--border-dark);
-            box-shadow: inset -1px -1px var(--border-shadow), inset 1px 1px var(--border-light-gray), 2px 2px 10px rgba(0,0,0,0.5); /* Sombra extra adicionada para destacar do vídeo */
+            box-shadow: inset -1px -1px var(--border-shadow), inset 1px 1px var(--border-light-gray), 2px 2px 10px rgba(0,0,0,0.5);
             width: 90%;
             max-width: 550px;
             padding: 3px;
@@ -143,7 +136,6 @@
             gap: 4px;
         }
 
-        /* Barra de Menu */
         .menu-bar {
             display: flex;
             gap: 15px;
@@ -192,7 +184,6 @@
             gap: 15px;
         }
 
-        /* Container do Avatar Afundado */
         .avatar-container {
             position: relative;
             width: 140px;
@@ -291,7 +282,6 @@
             margin-bottom: 5px;
         }
 
-        /* ----- BARRA DE TAREFAS E MENU INICIAR ----- */
         .taskbar {
             position: fixed;
             bottom: 0; left: 0;
@@ -381,7 +371,6 @@
             border-bottom: 1px solid var(--border-light);
         }
 
-        /* ----- TELA DE INÍCIO (TELA DE BOOT) ----- */
         .start-overlay {
             position: fixed; inset: 0;
             background: black; color: #c0c0c0;
@@ -396,7 +385,6 @@
             transition: opacity 0.3s;
         }
 
-        /* Notificação */
         .toast {
             position: fixed;
             top: 20px; right: 20px;
@@ -473,7 +461,7 @@
         <div class="window-content">
             
             <div class="retro-marquee">
-                <marquee scrollamount="5">Bem-vindo(a) à minha página pessoal! *** Navegando na World Wide Web ***</marquee>
+                <marquee scrollamount="5">*** Navegando na World Wide Web ***</marquee>
             </div>
 
             <div style="display: flex; gap: 20px; width: 100%; align-items: flex-start;">
@@ -492,7 +480,8 @@
                     <fieldset>
                         <legend>Geral</legend>
                         <div class="info-grid">
-                            <b>Status:</b> <span>"I do think you fit this shoe"</span>
+                            <b>Status:</b> <span>"Eu vejo seus lindos olhos
+Eles são nublados como o céu"</span>
                             <b>Pronomes:</b> <span>Ela / Dela</span>
                             <b>Est:</b> <span>1991</span>
                         </div>
@@ -504,10 +493,13 @@
                 <a href="https://instagram.com/pokedois" target="_blank" class="win-btn">
                     <i class="ph-fill ph-instagram-logo" style="margin-right: 8px;"></i> Instagram
                 </a>
+                <a href="https://x.com/goianinhagirl" target="_blank" class="win-btn">
+                    <i class="ph-fill ph-x-logo" style="margin-right: 8px;"></i> X
+                </a>
                 <a href="#" id="copy-discord" class="win-btn">
                     <i class="ph-fill ph-discord-logo" style="margin-right: 8px;"></i> Discord
                 </a>
-                <button class="win-btn" onclick="alert('Operação Ilegal executada.')">
+                <button class="win-btn" onclick="alert('Miau')">
                     Aplicar
                 </button>
             </nav>
@@ -552,7 +544,6 @@
     </div>
 
     <script>
-        // DRAG DA JANELA (Simula o arrastar do Windows)
         const windowEl = document.getElementById('main-content');
         const titleBar = document.getElementById('title-bar');
         let isDragging = false;
@@ -564,7 +555,6 @@
             offsetY = e.clientY - windowEl.getBoundingClientRect().top;
             titleBar.style.cursor = 'grabbing';
             windowEl.style.position = 'absolute';
-            // Zera as margens para não interferir no Absolute
             windowEl.style.margin = '0';
         });
 
@@ -579,7 +569,6 @@
             titleBar.style.cursor = 'default';
         });
 
-        // MENU INICIAR TOGGLE
         const startBtn = document.getElementById('start-btn');
         const startMenu = document.getElementById('start-menu');
         startBtn.addEventListener('click', (e) => {
@@ -594,7 +583,6 @@
             }
         });
 
-        // RELÓGIO
         function updateClock() {
             const now = new Date();
             const options = { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit', hour12: true };
@@ -603,7 +591,6 @@
         setInterval(updateClock, 1000);
         updateClock();
 
-        // TELA DE ENTRADA & ÁUDIO
         const overlay = document.getElementById('start-overlay');
         const music = document.getElementById('bg-music');
         const audioBtn = document.getElementById('audio-btn');
@@ -635,12 +622,10 @@
                 audioIcon.classList.replace('ph-speaker-slash', 'ph-speaker-high');
             }
             isPlaying = !isPlaying;
-            // Efeito visual de clique no botão
             this.classList.add('active');
             setTimeout(() => this.classList.remove('active'), 150);
         });
 
-        // CONTADOR DE VISITAS
         async function updateViewCount() {
             try {
                 const ultimaVisitaStr = localStorage.getItem('ultima_visita_laura');
@@ -669,21 +654,19 @@
             }
         }
 
-        // COPIAR DISCORD ID
         const discordBtn = document.getElementById('copy-discord');
         const toast = document.getElementById('toast');
         let toastTimeout;
 
         discordBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            navigator.clipboard.writeText('shion0z').then(() => {
+            navigator.clipboard.writeText('imlauh').then(() => {
                 toast.classList.add('show');
                 clearTimeout(toastTimeout);
                 toastTimeout = setTimeout(() => toast.classList.remove('show'), 2500);
             });
         });
 
-        // DISCORD API VIA LANYARD
         const discordId = '1052662634085892188'; 
 
         async function fetchDiscordData() {
