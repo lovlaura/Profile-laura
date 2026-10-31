@@ -3,43 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Windows - laura</title>
+    <title>UNDERTALE</title>
     
+    <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <!-- Pixelated Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --win-bg: #c0c0c0;
-            --win-teal: #008080;
-            --win-blue: #000080;
-            --win-blue-grad: #1084d0;
-            --win-text: #000000;
-            --win-text-light: #ffffff;
-            
-            --border-light: #ffffff;
-            --border-shadow: #808080;
-            --border-dark: #000000;
-            --border-light-gray: #dfdfdf;
+            --ut-black: #000000;
+            --ut-white: #ffffff;
+            --ut-yellow: #ffff00;
+            --ut-red: #ff0000;
+            --ut-cyan: #00ffff;
+            --ut-orange: #ff9900;
+            --ut-green: #00ff00;
+            --ut-gray: #888888;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Pixelated MS Sans Serif', 'MS Sans Serif', Tahoma, sans-serif;
+            font-family: 'VT323', monospace;
             user-select: none;
         }
 
         body {
-            background-color: var(--win-teal);
-            color: var(--win-text);
+            background-color: var(--ut-black);
+            color: var(--ut-white);
             min-height: 100vh;
-            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 15px;
+            position: relative;
+            overflow-x: hidden;
         }
 
+        /* Background Video Element */
         .bg-video {
             position: fixed;
             top: 0;
@@ -51,538 +57,553 @@
             pointer-events: none;
         }
 
-        .scanlines {
+        /* Starfield effect */
+        .stars-bg {
             position: fixed;
             inset: 0;
-            background: linear-gradient(
-                to bottom,
-                rgba(255, 255, 255, 0),
-                rgba(255, 255, 255, 0) 50%,
-                rgba(0, 0, 0, 0.1) 50%,
-                rgba(0, 0, 0, 0.1)
-            );
-            background-size: 100% 4px;
             pointer-events: none;
-            z-index: 9999;
-        }
-
-        .desktop {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
             z-index: 1;
         }
 
-        .desktop-icon {
+        .star {
+            position: absolute;
+            background: #ffffff;
+            width: 2px;
+            height: 2px;
+            opacity: 0.8;
+            animation: twinkle linear infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        /* Intro / Save Point Overlay */
+        .intro-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(4px);
+            z-index: 999;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            width: 80px;
-            color: white;
-            text-align: center;
-            font-size: 0.9rem;
-            cursor: pointer;
-        }
-
-        .desktop-icon i {
-            font-size: 2.5rem;
-            margin-bottom: 5px;
-            color: #c0c0c0;
-            filter: drop-shadow(2px 2px 0px #000);
-        }
-
-        .desktop-icon:active span {
-            background-color: var(--win-blue);
-            border: 1px dotted yellow;
-        }
-
-        .desktop-icon span {
-            padding: 2px 4px;
-            text-shadow: 1px 1px 2px black;
-        }
-
-        .window {
-            background-color: var(--win-bg);
-            border-top: 2px solid var(--border-light);
-            border-left: 2px solid var(--border-light);
-            border-right: 2px solid var(--border-dark);
-            border-bottom: 2px solid var(--border-dark);
-            box-shadow: inset -1px -1px var(--border-shadow), inset 1px 1px var(--border-light-gray), 2px 2px 10px rgba(0,0,0,0.5);
-            width: 90%;
-            max-width: 550px;
-            padding: 3px;
-            position: relative;
-            z-index: 10;
-        }
-
-        .title-bar {
-            background: linear-gradient(90deg, var(--win-blue), var(--win-blue-grad));
-            padding: 3px 5px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: var(--win-text-light);
-            font-weight: bold;
-            font-size: 1rem;
-            letter-spacing: 1px;
-            cursor: default;
-        }
-
-        .title-bar-controls {
-            display: flex;
-            gap: 4px;
-        }
-
-        .menu-bar {
-            display: flex;
-            gap: 15px;
-            padding: 4px 10px;
-            border-bottom: 1px solid var(--border-shadow);
-            font-size: 0.95rem;
-        }
-        .menu-bar span:first-letter { text-decoration: underline; }
-        .menu-bar span:hover { background-color: var(--win-blue); color: white; cursor: pointer; }
-
-        .win-btn {
-            background-color: var(--win-bg);
-            border-top: 2px solid var(--border-light);
-            border-left: 2px solid var(--border-light);
-            border-right: 2px solid var(--border-dark);
-            border-bottom: 2px solid var(--border-dark);
-            box-shadow: inset -1px -1px var(--border-shadow), inset 1px 1px var(--border-light-gray);
-            color: var(--win-text);
-            font-weight: bold;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            cursor: pointer;
-            text-decoration: none;
-            padding: 4px 10px;
-            font-size: 1rem;
+            align-items: center;
+            padding: 25px;
+            text-align: center;
+            transition: opacity 0.4s ease;
         }
 
-        .win-btn:active, .win-btn.active {
-            border-top: 2px solid var(--border-dark);
-            border-left: 2px solid var(--border-dark);
-            border-right: 2px solid var(--border-light);
-            border-bottom: 2px solid var(--border-light);
-            box-shadow: inset 1px 1px var(--border-shadow);
-            padding: 5px 9px 3px 11px;
-        }
-
-        .win-btn:focus-visible { outline: 1px dotted black; outline-offset: -4px; }
-        .close-btn { padding: 2px 6px; font-size: 0.9rem; font-weight: bold; }
-
-        .window-content {
-            padding: 20px;
+        .intro-box {
+            border: 4px solid var(--ut-white);
+            background: rgba(0, 0, 0, 0.92);
+            padding: 30px 20px;
+            max-width: 520px;
+            width: 100%;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.9);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
         }
 
-        .avatar-container {
-            position: relative;
-            width: 140px;
-            height: 140px;
-            border-top: 2px solid var(--border-shadow);
-            border-left: 2px solid var(--border-shadow);
-            border-right: 2px solid var(--border-light);
-            border-bottom: 2px solid var(--border-light);
-            background: #fff;
-            padding: 4px;
+        .save-star {
+            color: var(--ut-yellow);
+            font-size: 2rem;
+            animation: pulse-star 1s infinite alternate;
         }
 
-        .avatar {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            image-rendering: pixelated; 
+        @keyframes pulse-star {
+            from { transform: scale(1); filter: drop-shadow(0 0 2px var(--ut-yellow)); }
+            to { transform: scale(1.25); filter: drop-shadow(0 0 10px var(--ut-yellow)); }
         }
 
-        .discord-decoration {
-            position: absolute; 
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%); 
-            width: 170px; height: 170px;
-            z-index: 3; pointer-events: none; display: none;
+        .intro-text {
+            font-size: 1.5rem;
+            line-height: 1.4;
+            color: var(--ut-white);
+            text-shadow: 1px 1px 0px #000;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: -5px;
-            text-shadow: 1px 1px 0px var(--border-light), 2px 2px 0px var(--border-shadow);
-        }
-
-        fieldset {
-            width: 100%;
-            border-top: 2px solid var(--border-shadow);
-            border-left: 2px solid var(--border-shadow);
-            border-right: 2px solid var(--border-light);
-            border-bottom: 2px solid var(--border-light);
-            padding: 15px;
-            margin-top: 10px;
-            text-align: left;
-        }
-
-        legend {
-            padding: 0 5px;
-            color: var(--win-blue);
-            font-weight: bold;
-        }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: auto 1fr;
-            gap: 8px 15px;
-            font-size: 1.1rem;
-        }
-
-        .info-grid b { color: #333; }
-
-        .status-wrapper {
+        .intro-btn {
+            background: #000;
+            border: 3px solid var(--ut-yellow);
+            color: var(--ut-yellow);
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.8rem;
+            padding: 12px 24px;
+            cursor: pointer;
             display: flex;
             align-items: center;
             gap: 10px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            margin-bottom: 5px;
-            background: var(--border-light);
-            padding: 4px 8px;
-            border: 1px inset var(--border-shadow);
-            width: fit-content;
+            transition: all 0.15s ease;
         }
 
-        .status-dot {
-            width: 12px; height: 12px;
-            border: 1px solid var(--border-dark);
-            background-color: var(--border-shadow);
+        .intro-btn:hover {
+            background: var(--ut-yellow);
+            color: #000;
+            box-shadow: 0 0 15px rgba(255, 255, 0, 0.6);
         }
 
-        .links-row {
+        /* Main RPG Container */
+        .rpg-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 650px;
             display: flex;
+            flex-direction: column;
             gap: 15px;
-            margin-top: 5px;
-            width: 100%;
         }
 
-        .links-row .win-btn { flex: 1; }
-
-        .retro-marquee {
-            width: 100%;
-            background: black;
-            color: #00ff00; 
-            font-family: 'Courier New', Courier, monospace;
-            padding: 2px 5px;
-            border: 2px inset var(--border-shadow);
-            font-size: 0.9rem;
-            margin-bottom: 5px;
-        }
-
-        .taskbar {
-            position: fixed;
-            bottom: 0; left: 0;
-            width: 100%; height: 40px;
-            background-color: var(--win-bg);
-            border-top: 2px solid var(--border-light);
+        /* Header / Player Stats Bar */
+        .stats-bar {
+            border: 4px solid var(--ut-white);
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(2px);
+            padding: 12px 18px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 2px;
-            z-index: 100;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.8rem;
+            box-shadow: 0 0 15px rgba(0,0,0,0.8);
         }
 
-        .start-btn {
+        .stats-bar .name-lv {
+            display: flex;
+            gap: 15px;
+            color: var(--ut-white);
+        }
+
+        .hp-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hp-title {
+            font-size: 0.6rem;
+            color: var(--ut-white);
+        }
+
+        .hp-bar-bg {
+            width: 80px;
+            height: 16px;
+            background: var(--ut-red);
+            border: 1px solid var(--ut-white);
+            position: relative;
+        }
+
+        .hp-bar-fill {
+            width: 100%;
             height: 100%;
-            display: flex; align-items: center; gap: 5px;
-            font-weight: bold; font-size: 1.1rem;
-            padding: 0 10px;
-        }
-        .start-btn img { width: 18px; }
-
-        .taskbar-right {
-            display: flex; height: 100%; gap: 5px;
+            background: var(--ut-yellow);
         }
 
-        .tray {
-            border-top: 2px solid var(--border-shadow);
-            border-left: 2px solid var(--border-shadow);
-            border-right: 2px solid var(--border-light);
-            border-bottom: 2px solid var(--border-light);
-            padding: 0 10px;
-            display: flex; align-items: center; gap: 8px;
-            font-size: 0.9rem;
+        .hp-num {
+            font-size: 0.75rem;
+            color: var(--ut-white);
+            margin-left: 5px;
         }
 
-        .tray i { font-size: 1.2rem; }
-
-        .start-menu {
-            position: fixed;
-            bottom: 40px; left: 0;
-            width: 250px;
-            background-color: var(--win-bg);
-            border-top: 2px solid var(--border-light);
-            border-left: 2px solid var(--border-light);
-            border-right: 2px solid var(--border-dark);
-            border-bottom: 2px solid var(--border-dark);
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        /* Dialogue Box (Main Content Area) */
+        .dialogue-box {
+            border: 5px solid var(--ut-white);
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(3px);
+            padding: 22px;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.8);
             display: flex;
-            z-index: 99;
-            transform-origin: bottom left;
-            transform: scaleY(0);
-            transition: transform 0.1s ease;
+            flex-direction: column;
+            gap: 20px;
         }
-        
-        .start-menu.open { transform: scaleY(1); }
 
-        .start-sidebar {
-            width: 35px;
-            background: linear-gradient(to bottom, var(--win-blue), var(--win-blue-grad));
-            color: white;
+        .dialogue-header {
             display: flex;
-            align-items: flex-end;
-            padding-bottom: 10px;
+            gap: 20px;
+            align-items: flex-start;
         }
 
-        .start-sidebar span {
-            transform: rotate(-90deg);
-            white-space: nowrap;
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin-bottom: 40px;
-            margin-left: -20px;
+        .avatar-frame {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            border: 4px solid var(--ut-white);
+            background: #0a0a0a;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .start-items { flex: 1; padding: 2px; display: flex; flex-direction: column; }
-        
-        .start-item {
-            display: flex; align-items: center; gap: 10px;
-            padding: 8px 10px; font-size: 1rem;
+        .avatar-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            image-rendering: pixelated;
+        }
+
+        .discord-decor {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 150px; height: 150px;
+            pointer-events: none;
+            display: none;
+            z-index: 3;
+        }
+
+        .character-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .character-name {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 1.6rem;
+            color: var(--ut-white);
+            letter-spacing: 2px;
+            text-shadow: 3px 3px 0px #000;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #08080c;
+            border: 2px solid var(--ut-white);
+            padding: 4px 10px;
+            font-size: 1.25rem;
+            width: fit-content;
+            margin-top: 2px;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background-color: var(--ut-gray);
+            border: 1px solid var(--ut-white);
+        }
+
+        .dialogue-text {
+            font-size: 1.45rem;
+            line-height: 1.35;
+            color: var(--ut-white);
+            border-top: 2px dashed #333;
+            padding-top: 15px;
+        }
+
+        .dialogue-text p {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .dialogue-text p::before {
+            content: '*';
+            color: var(--ut-white);
+        }
+
+        .info-stats-grid {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 6px 15px;
+            font-size: 1.3rem;
+            margin-top: 5px;
+            background: rgba(5, 5, 8, 0.75);
+            border: 2px solid var(--ut-white);
+            padding: 10px 14px;
+        }
+
+        .info-stats-grid span.label {
+            color: var(--ut-yellow);
+        }
+
+        /* Undertale Battle Action Buttons */
+        .action-buttons-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            width: 100%;
+        }
+
+        .ut-btn {
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(2px);
+            border: 3px solid var(--ut-orange);
+            color: var(--ut-orange);
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.75rem;
+            padding: 12px 6px;
             cursor: pointer;
-        }
-        .start-item:hover { background-color: var(--win-blue); color: white; }
-        
-        .menu-divider {
-            height: 2px; margin: 2px 5px;
-            background: var(--border-shadow);
-            border-bottom: 1px solid var(--border-light);
-        }
-
-        .start-overlay {
-            position: fixed; inset: 0;
-            background: black; color: #c0c0c0;
-            font-family: 'Courier New', Courier, monospace;
-            z-index: 9999;
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-            align-items: center; 
-            text-align: center; 
-            padding: 20px;
-            transition: opacity 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            text-decoration: none;
+            transition: all 0.1s ease;
+            position: relative;
+            text-align: center;
         }
 
+        .ut-btn:hover, .ut-btn:focus-visible {
+            background: var(--ut-yellow);
+            color: #000;
+            border-color: var(--ut-yellow);
+            box-shadow: 0 0 12px rgba(255, 255, 0, 0.7);
+            outline: none;
+        }
+
+        .ut-btn .soul-icon {
+            display: none;
+            color: var(--ut-red);
+            font-size: 0.8rem;
+        }
+
+        .ut-btn:hover .soul-icon {
+            display: inline-block;
+        }
+
+        /* Bottom Control Deck */
+        .bottom-deck {
+            border: 4px solid var(--ut-white);
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(2px);
+            padding: 10px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.2rem;
+        }
+
+        .deck-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--ut-white);
+        }
+
+        .deck-item i {
+            color: var(--ut-yellow);
+            font-size: 1.3rem;
+        }
+
+        .audio-toggle {
+            background: #000;
+            border: 2px solid var(--ut-white);
+            color: var(--ut-white);
+            padding: 4px 10px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .audio-toggle:hover {
+            border-color: var(--ut-cyan);
+            color: var(--ut-cyan);
+        }
+
+        /* Toast notification styled as Undertale Battle Banner */
         .toast {
             position: fixed;
-            top: 20px; right: 20px;
-            background: var(--win-bg);
-            border: 2px solid var(--border-light);
-            border-right-color: var(--border-dark);
-            border-bottom-color: var(--border-dark);
-            padding: 10px 15px;
-            font-size: 1rem;
-            opacity: 0; visibility: hidden;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--ut-black);
+            color: var(--ut-yellow);
+            border: 4px solid var(--ut-white);
+            padding: 12px 24px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.7rem;
+            opacity: 0;
+            visibility: hidden;
             transition: all 0.2s ease;
             z-index: 9999;
+            box-shadow: 0 0 20px rgba(255, 255, 0, 0.4);
+            text-align: center;
         }
-        .toast.show { opacity: 1; visibility: visible; }
+
+        .toast.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Responsive tweaks */
+        @media (max-width: 580px) {
+            .action-buttons-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .dialogue-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .status-badge {
+                margin: 0 auto;
+            }
+            .stats-bar {
+                font-size: 0.65rem;
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body>
 
+    <!-- Background Video -->
     <video autoplay loop muted playsinline class="bg-video">
         <source src="wallpaper.mp4" type="video/mp4">
     </video>
 
-    <div class="scanlines"></div>
+    <!-- Starfield void effect -->
+    <div class="stars-bg" id="stars-container"></div>
 
-    <div id="start-overlay" class="start-overlay">
-        <p>BIOS Date 04/23/98 14:11:00 Ver 2.0</p>
-        <p>CPU: Intel(R) Pentium(R) II</p>
-        <p>Memory Test: 32768K OK</p><br>
-        <p>Carregando arquivos de sistema...</p>
-        <p>Inicializando LAURA.EXE...</p><br>
-        <button class="win-btn" style="width: 250px; margin-top: 20px; font-family: 'MS Sans Serif', sans-serif;">
-            [ Clique para iniciar o Windows ]
-        </button>
+    <!-- Intro Save Point Screen -->
+    <div id="intro-overlay" class="intro-overlay">
+        <div class="intro-box">
+            <div class="save-star">★</div>
+            <div class="intro-text">
+                * The shadow of the Dark World looms above.<br>
+                * Entering Laura's domain fills you with 
+                <span style="color: var(--ut-yellow);">DETERMINATION</span>.
+            </div>
+            <button class="intro-btn" id="start-journey-btn">
+                <span>❤</span> [ CONTINUE ]
+            </button>
+        </div>
     </div>
 
-    <div class="desktop">
-        <div class="desktop-icon">
-            <i class="ph-fill ph-computer-tower"></i>
-            <span>Meu Computador</span>
-        </div>
-        <div class="desktop-icon">
-            <i class="ph-fill ph-folder-open"></i>
-            <span>Meus Documentos</span>
-        </div>
-        <div class="desktop-icon">
-            <i class="ph-fill ph-trash"></i>
-            <span>Lixeira</span>
-        </div>
-    </div>
-    
+    <!-- Audio Player -->
     <audio id="bg-music" loop>
         <source src="musicam.mp3" type="audio/mpeg">
     </audio>
 
-    <main class="window" id="main-content">
-        <div class="title-bar" id="title-bar">
-            <div class="title-text">
-                <i class="ph-fill ph-address-book" style="vertical-align: middle; margin-right: 5px;"></i> 
-                Propriedades de Laura
-            </div>
-            <div class="title-bar-controls">
-                <button class="win-btn close-btn">?</button>
-                <button class="win-btn close-btn">X</button>
-            </div>
-        </div>
+    <!-- Main Undertale RPG UI Container -->
+    <main class="rpg-container">
         
-        <div class="menu-bar">
-            <span>Arquivo</span>
-            <span>Editar</span>
-            <span>Visualizar</span>
-            <span>Ajuda</span>
-        </div>
-
-        <div class="window-content">
-            
-            <div class="retro-marquee">
-                <marquee scrollamount="5">*** Navegando na World Wide Web ***</marquee>
+        <!-- Stats Top Bar -->
+        <header class="stats-bar">
+            <div class="name-lv">
+                <span>LAURA</span>
+                <span>LV 99</span>
             </div>
+            <div class="hp-container">
+                <span class="hp-title">HP</span>
+                <div class="hp-bar-bg">
+                    <div class="hp-bar-fill"></div>
+                </div>
+                <span class="hp-num">99 / 99</span>
+            </div>
+            <div style="color: var(--ut-yellow);">G 99999</div>
+        </header>
 
-            <div style="display: flex; gap: 20px; width: 100%; align-items: flex-start;">
-                <div class="avatar-container" id="avatar-container">
-                    <img id="discord-avatar" alt="avatar" class="avatar" src="https://cdn.discordapp.com/embed/avatars/1.png">
-                    <img id="discord-decoration" alt="decor" class="discord-decoration" src="">
+        <!-- Main Dialogue / Info Box -->
+        <section class="dialogue-box">
+            <div class="dialogue-header">
+                <div class="avatar-frame">
+                    <img id="discord-avatar" alt="avatar" class="avatar-img" src="https://cdn.discordapp.com/embed/avatars/1.png">
+                    <img id="discord-decor" alt="decor" class="discord-decor" src="">
                 </div>
 
-                <div style="flex: 1;">
-                    <h1>Laura</h1>
-                    <div class="status-wrapper">
+                <div class="character-info">
+                    <h1 class="character-name">LAURA</h1>
+                    <div class="status-badge">
                         <div id="status-dot" class="status-dot"></div>
                         <span id="status-text">Conectando...</span>
                     </div>
-
-                    <fieldset>
-                        <legend>Geral</legend>
-                        <div class="info-grid">
-                            <b>Status:</b> <span>"Eu vejo seus lindos olhos
-Eles são nublados como o céu"</span>
-                            <b>Pronomes:</b> <span>Ela / Dela</span>
-                            <b>Est:</b> <span>1991</span>
-                        </div>
-                    </fieldset>
                 </div>
             </div>
 
-            <nav class="links-row">
-                <a href="https://instagram.com/pokedois" target="_blank" class="win-btn">
-                    <i class="ph-fill ph-instagram-logo" style="margin-right: 8px;"></i> Instagram
-                </a>
-                <a href="https://x.com/goianinhagirl" target="_blank" class="win-btn">
-                    <i class="ph-fill ph-x-logo" style="margin-right: 8px;"></i> X
-                </a>
-                <a href="#" id="copy-discord" class="win-btn">
-                    <i class="ph-fill ph-discord-logo" style="margin-right: 8px;"></i> Discord
-                </a>
-                <button class="win-btn" onclick="alert('Miau')">
-                    Aplicar
-                </button>
-            </nav>
-        </div>
+            <!-- Dialogue Text Lines -->
+            <div class="dialogue-text">
+                <p>"Eu vejo seus lindos olhos. Eles são nublados como o céu."</p>
+                <p style="color: var(--ut-cyan);">Navegando pela World Wide Web nas profundezas do Dark World.</p>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="info-stats-grid">
+                <span class="label">Pronomes:</span> <span>Ela / Dela</span>
+                <span class="label">EST:</span> <span>1991</span>
+                <span class="label">ATK / DEF:</span> <span>99 ATK / 99 DEF</span>
+                <span class="label">Mural:</span> <span>"Stay Determined!"</span>
+            </div>
+        </section>
+
+        <!-- Undertale Battle Actions Navigation Bar -->
+        <nav class="action-buttons-grid">
+            <a href="https://instagram.com/pokedois" target="_blank" class="ut-btn">
+                <span class="soul-icon">❤</span> <i class="ph-fill ph-instagram-logo"></i> [ FIGHT ]
+            </a>
+            <a href="https://x.com/goianinhagirl" target="_blank" class="ut-btn">
+                <span class="soul-icon">❤</span> <i class="ph-fill ph-x-logo"></i> [ ACT ]
+            </a>
+            <a href="#" id="copy-discord" class="ut-btn">
+                <span class="soul-icon">❤</span> <i class="ph-fill ph-discord-logo"></i> [ ITEM ]
+            </a>
+            <button class="ut-btn" onclick="triggerSavePoint()">
+                <span class="soul-icon">❤</span> <i class="ph-fill ph-check-circle"></i> [ MERCY ]
+            </button>
+        </nav>
+
+        <!-- Bottom Deck (Visitors & Clock) -->
+        <footer class="bottom-deck">
+            <div class="deck-item" title="SOUL Visitors">
+                <i class="ph-fill ph-heart"></i>
+                <span>VISITANTES: <b id="view-count" style="color: var(--ut-yellow);">-</b></span>
+            </div>
+
+            <button class="audio-toggle" id="audio-btn">
+                <i id="audio-icon" class="ph-fill ph-speaker-high"></i>
+                <span id="audio-status">AUDIO</span>
+            </button>
+
+            <div class="deck-item">
+                <i class="ph-fill ph-clock"></i>
+                <span id="time-display">--:--</span>
+            </div>
+        </footer>
+
     </main>
 
-    <div class="start-menu" id="start-menu">
-        <div class="start-sidebar">
-            <span><b>Windows</b> 98</span>
-        </div>
-        <div class="start-items">
-            <div class="start-item"><i class="ph-fill ph-briefcase" style="font-size: 1.5rem; color: #a0a0a0;"></i> Programas</div>
-            <div class="start-item"><i class="ph-fill ph-star" style="font-size: 1.5rem; color: #ffcc00;"></i> Favoritos</div>
-            <div class="start-item"><i class="ph-fill ph-file-text" style="font-size: 1.5rem; color: #a0a0a0;"></i> Documentos</div>
-            <div class="start-item"><i class="ph-fill ph-gear" style="font-size: 1.5rem; color: #a0a0a0;"></i> Configurações</div>
-            <div class="start-item"><i class="ph-fill ph-magnifying-glass" style="font-size: 1.5rem; color: #a0a0a0;"></i> Localizar</div>
-            <div class="menu-divider"></div>
-            <div class="start-item"><i class="ph-fill ph-power" style="font-size: 1.5rem; color: red;"></i> Desligar...</div>
-        </div>
-    </div>
-
-    <footer class="taskbar">
-        <button class="win-btn start-btn" id="start-btn">
-            <i class="ph-fill ph-windows-logo" style="color: #008080; font-size: 1.3rem;"></i> Iniciar
-        </button>
-        
-        <div class="taskbar-right">
-            <div class="tray" title="Visitantes">
-                <i class="ph-fill ph-users"></i> <span id="view-count">-</span>
-            </div>
-            <div class="tray win-btn" id="audio-btn" title="Controle de Volume" style="padding: 2px 6px; cursor:pointer;">
-                <i id="audio-icon" class="ph-fill ph-speaker-high"></i>
-            </div>
-            <div class="tray">
-                <div id="time-display">--:--</div>
-            </div>
-        </div>
-    </footer>
-
+    <!-- Toast Notification Banner -->
     <div id="toast" class="toast">
-        <i class="ph-fill ph-info"></i> ID copiado!
+        * DISCORD ID COPIED TO CLIPBOARD!
     </div>
 
     <script>
-        const windowEl = document.getElementById('main-content');
-        const titleBar = document.getElementById('title-bar');
-        let isDragging = false;
-        let offsetX, offsetY;
+        // Custom Save Point / Mercy Dialogue Action
+        function triggerSavePoint() {
+            const toast = document.getElementById('toast');
+            toast.innerText = "* (Sparing Laura fills your soul with determination!)";
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+                toast.innerText = "* DISCORD ID COPIED TO CLIPBOARD!";
+            }, 3000);
+        }
 
-        titleBar.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            offsetX = e.clientX - windowEl.getBoundingClientRect().left;
-            offsetY = e.clientY - windowEl.getBoundingClientRect().top;
-            titleBar.style.cursor = 'grabbing';
-            windowEl.style.position = 'absolute';
-            windowEl.style.margin = '0';
-        });
+        // Generate Starfield Background
+        const starsContainer = document.getElementById('stars-container');
+        for (let i = 0; i < 80; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.animationDuration = (Math.random() * 3 + 1) + 's';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starsContainer.appendChild(star);
+        }
 
-        document.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            windowEl.style.left = `${e.clientX - offsetX}px`;
-            windowEl.style.top = `${e.clientY - offsetY}px`;
-        });
-
-        document.addEventListener('mouseup', () => {
-            isDragging = false;
-            titleBar.style.cursor = 'default';
-        });
-
-        const startBtn = document.getElementById('start-btn');
-        const startMenu = document.getElementById('start-menu');
-        startBtn.addEventListener('click', (e) => {
-            startMenu.classList.toggle('open');
-            startBtn.classList.toggle('active');
-            e.stopPropagation();
-        });
-        document.addEventListener('click', (e) => {
-            if(!startMenu.contains(e.target) && e.target !== startBtn) {
-                startMenu.classList.remove('open');
-                startBtn.classList.remove('active');
-            }
-        });
-
+        // Realtime Clock Handler
         function updateClock() {
             const now = new Date();
             const options = { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit', hour12: true };
@@ -591,16 +612,18 @@ Eles são nublados como o céu"</span>
         setInterval(updateClock, 1000);
         updateClock();
 
-        const overlay = document.getElementById('start-overlay');
+        // Audio & Start Overlay Handler
+        const overlay = document.getElementById('intro-overlay');
+        const startBtn = document.getElementById('start-journey-btn');
         const music = document.getElementById('bg-music');
         const audioBtn = document.getElementById('audio-btn');
         const audioIcon = document.getElementById('audio-icon');
         const viewCountText = document.getElementById('view-count');
         let isPlaying = false;
 
-        overlay.addEventListener('click', function() {
+        startBtn.addEventListener('click', function() {
             overlay.style.opacity = '0';
-            setTimeout(() => overlay.style.display = 'none', 300);
+            setTimeout(() => overlay.style.display = 'none', 400);
             
             updateViewCount(); 
             
@@ -622,10 +645,9 @@ Eles são nublados como o céu"</span>
                 audioIcon.classList.replace('ph-speaker-slash', 'ph-speaker-high');
             }
             isPlaying = !isPlaying;
-            this.classList.add('active');
-            setTimeout(() => this.classList.remove('active'), 150);
         });
 
+        // Visitor counter API
         async function updateViewCount() {
             try {
                 const ultimaVisitaStr = localStorage.getItem('ultima_visita_laura');
@@ -654,12 +676,14 @@ Eles são nublados como o céu"</span>
             }
         }
 
+        // Copy Discord Username
         const discordBtn = document.getElementById('copy-discord');
         const toast = document.getElementById('toast');
         let toastTimeout;
 
         discordBtn.addEventListener('click', function(e) {
             e.preventDefault();
+            document.execCommand('copy');
             navigator.clipboard.writeText('imlauh').then(() => {
                 toast.classList.add('show');
                 clearTimeout(toastTimeout);
@@ -667,6 +691,7 @@ Eles são nublados como o céu"</span>
             });
         });
 
+        // Lanyard API for Discord Profile Data
         const discordId = '1052662634085892188'; 
 
         async function fetchDiscordData() {
@@ -686,7 +711,7 @@ Eles são nublados como o céu"</span>
                         document.getElementById('discord-avatar').src = avatarUrl;
                     }
 
-                    const decorationImg = document.getElementById('discord-decoration');
+                    const decorationImg = document.getElementById('discord-decor');
                     if (user.avatar_decoration_data && user.avatar_decoration_data.asset) {
                         const asset = user.avatar_decoration_data.asset;
                         decorationImg.src = `https://cdn.discordapp.com/avatar-decoration-presets/${asset}.png?size=256`;
@@ -696,7 +721,7 @@ Eles são nublados como o céu"</span>
                     const statusDot = document.getElementById('status-dot');
                     const statusText = document.getElementById('status-text');
                     
-                    let statusColor = '#808080'; 
+                    let statusColor = '#888888'; 
                     let statusString = 'Offline';
 
                     if (lanyardData.discord_status === 'online') { 
@@ -715,6 +740,7 @@ Eles são nublados como o céu"</span>
                     
                     statusText.innerText = statusString;
                     statusDot.style.backgroundColor = statusColor;
+                    statusDot.style.boxShadow = `0 0 8px ${statusColor}`;
                 }
             } catch (error) {
                 document.getElementById('status-text').innerText = 'Falha na Rede';
