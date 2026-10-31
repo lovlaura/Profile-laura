@@ -5,10 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UNDERTALE</title>
     
-    <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     
-    <!-- Pixelated Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -45,7 +43,7 @@
             overflow-x: hidden;
         }
 
-        /* Background Video Element */
+       
         .bg-video {
             position: fixed;
             top: 0;
@@ -57,7 +55,7 @@
             pointer-events: none;
         }
 
-        /* Starfield effect */
+    
         .stars-bg {
             position: fixed;
             inset: 0;
@@ -79,7 +77,7 @@
             50% { opacity: 1; transform: scale(1.5); }
         }
 
-        /* Intro / Save Point Overlay */
+    
         .intro-overlay {
             position: fixed;
             inset: 0;
@@ -146,7 +144,7 @@
             box-shadow: 0 0 15px rgba(255, 255, 0, 0.6);
         }
 
-        /* Main RPG Container */
+       
         .rpg-container {
             position: relative;
             z-index: 10;
@@ -157,7 +155,7 @@
             gap: 15px;
         }
 
-        /* Header / Player Stats Bar */
+  
         .stats-bar {
             border: 4px solid var(--ut-white);
             background: rgba(0, 0, 0, 0.85);
@@ -210,7 +208,7 @@
             margin-left: 5px;
         }
 
-        /* Dialogue Box (Main Content Area) */
+ 
         .dialogue-box {
             border: 5px solid var(--ut-white);
             background: rgba(0, 0, 0, 0.85);
@@ -326,7 +324,7 @@
             color: var(--ut-yellow);
         }
 
-        /* Undertale Battle Action Buttons */
+
         .action-buttons-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -371,7 +369,7 @@
             display: inline-block;
         }
 
-        /* Bottom Control Deck */
+
         .bottom-deck {
             border: 4px solid var(--ut-white);
             background: rgba(0, 0, 0, 0.85);
@@ -412,7 +410,7 @@
             color: var(--ut-cyan);
         }
 
-        /* Toast notification styled as Undertale Battle Banner */
+     
         .toast {
             position: fixed;
             top: 25px;
@@ -437,7 +435,7 @@
             visibility: visible;
         }
 
-        /* Responsive tweaks */
+
         @media (max-width: 580px) {
             .action-buttons-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -459,15 +457,13 @@
 </head>
 <body>
 
-    <!-- Background Video -->
+
     <video autoplay loop muted playsinline class="bg-video">
         <source src="wallpaper.mp4" type="video/mp4">
     </video>
 
-    <!-- Starfield void effect -->
     <div class="stars-bg" id="stars-container"></div>
 
-    <!-- Intro Save Point Screen -->
     <div id="intro-overlay" class="intro-overlay">
         <div class="intro-box">
             <div class="save-star">★</div>
@@ -482,15 +478,12 @@
         </div>
     </div>
 
-    <!-- Audio Player -->
     <audio id="bg-music" loop>
         <source src="musicam.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Main Undertale RPG UI Container -->
     <main class="rpg-container">
-        
-        <!-- Stats Top Bar -->
+   
         <header class="stats-bar">
             <div class="name-lv">
                 <span>LAURA</span>
@@ -506,7 +499,6 @@
             <div style="color: var(--ut-yellow);">G 99999</div>
         </header>
 
-        <!-- Main Dialogue / Info Box -->
         <section class="dialogue-box">
             <div class="dialogue-header">
                 <div class="avatar-frame">
@@ -523,13 +515,11 @@
                 </div>
             </div>
 
-            <!-- Dialogue Text Lines -->
             <div class="dialogue-text">
                 <p>"Eu vejo seus lindos olhos. Eles são nublados como o céu."</p>
                 <p style="color: var(--ut-cyan);">Navegando pela World Wide Web nas profundezas do Dark World.</p>
             </div>
 
-            <!-- Stats Grid -->
             <div class="info-stats-grid">
                 <span class="label">Pronomes:</span> <span>Ela / Dela</span>
                 <span class="label">EST:</span> <span>1991</span>
@@ -538,7 +528,6 @@
             </div>
         </section>
 
-        <!-- Undertale Battle Actions Navigation Bar -->
         <nav class="action-buttons-grid">
             <a href="https://instagram.com/pokedois" target="_blank" class="ut-btn">
                 <span class="soul-icon">❤</span> <i class="ph-fill ph-instagram-logo"></i> [ FIGHT ]
@@ -554,7 +543,7 @@
             </button>
         </nav>
 
-        <!-- Bottom Deck (Visitors & Clock) -->
+
         <footer class="bottom-deck">
             <div class="deck-item" title="SOUL Visitors">
                 <i class="ph-fill ph-heart"></i>
@@ -574,13 +563,12 @@
 
     </main>
 
-    <!-- Toast Notification Banner -->
     <div id="toast" class="toast">
         * DISCORD ID COPIED TO CLIPBOARD!
     </div>
 
     <script>
-        // Custom Save Point / Mercy Dialogue Action
+  
         function triggerSavePoint() {
             const toast = document.getElementById('toast');
             toast.innerText = "* (Sparing Laura fills your soul with determination!)";
@@ -591,7 +579,6 @@
             }, 3000);
         }
 
-        // Generate Starfield Background
         const starsContainer = document.getElementById('stars-container');
         for (let i = 0; i < 80; i++) {
             const star = document.createElement('div');
@@ -603,7 +590,7 @@
             starsContainer.appendChild(star);
         }
 
-        // Realtime Clock Handler
+
         function updateClock() {
             const now = new Date();
             const options = { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit', hour12: true };
@@ -612,7 +599,7 @@
         setInterval(updateClock, 1000);
         updateClock();
 
-        // Audio & Start Overlay Handler
+
         const overlay = document.getElementById('intro-overlay');
         const startBtn = document.getElementById('start-journey-btn');
         const music = document.getElementById('bg-music');
@@ -647,7 +634,7 @@
             isPlaying = !isPlaying;
         });
 
-        // Visitor counter API
+
         async function updateViewCount() {
             try {
                 const ultimaVisitaStr = localStorage.getItem('ultima_visita_laura');
@@ -676,7 +663,7 @@
             }
         }
 
-        // Copy Discord Username
+
         const discordBtn = document.getElementById('copy-discord');
         const toast = document.getElementById('toast');
         let toastTimeout;
@@ -691,7 +678,6 @@
             });
         });
 
-        // Lanyard API for Discord Profile Data
         const discordId = '1052662634085892188'; 
 
         async function fetchDiscordData() {
